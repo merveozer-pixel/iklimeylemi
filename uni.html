@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Üniversitemiz | İklim Eylemi Analizi</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #fdfdfb; 
+            color: #1a2e1a;
+        }
+
+        /* Cam Efekti Navigasyon */
+        .glass-nav { 
+            background: rgba(4, 120, 87, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Modern Kart Tasarımı */
+        .card { 
+            background: white; 
+            border-radius: 1.5rem; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card:hover { 
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Belirme Animasyonu */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Grafik Alanı Sabitleyici */
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- NAVIGASYON -->
+<nav class="glass-nav sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center font-black text-emerald-900 group-hover:rotate-6 transition-transform">İE</div>
+            <span class="text-xl font-extrabold text-white tracking-tight">İKLİM <span class="text-yellow-400">EYLEMİ</span></span>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-2">
+            <a href="index.html" class="text-emerald-50 hover:bg-white/10 px-5 py-2 rounded-full text-sm font-medium transition">Ana Sayfa</a>
+            <a href="hedef.html" class="text-emerald-50 hover:bg-white/10 px-5 py-2 rounded-full text-sm font-medium transition">Hedef</a>
+            <a href="sorunlar.html" class="text-emerald-50 hover:bg-white/10 px-5 py-2 rounded-full text-sm font-medium transition">Sorunlar</a>
+            <a href="cozumler.html" class="text-emerald-50 hover:bg-white/10 px-5 py-2 rounded-full text-sm font-medium transition">Çözümler</a>
+            <a href="uni.html" class="ml-4 bg-white/20 text-white px-6 py-2.5 rounded-full text-sm font-bold border border-white/30 tracking-wide">Üniversitemiz</a>
+        </div>
+
+        <button id="menu-btn" class="md:hidden text-white p-2">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+    </div>
+
+    <!-- Mobil Menü -->
+    <div id="mobile-menu" class="hidden md:hidden bg-emerald-900 border-t border-emerald-800 px-6 py-6 space-y-4 text-center">
+        <a href="index.html" class="block text-white text-lg">Ana Sayfa</a>
+        <a href="hedef.html" class="block text-white text-lg">Hedef</a>
+        <a href="sorunlar.html" class="block text-white text-lg">Sorunlar</a>
+        <a href="uni.html" class="block text-yellow-400 font-bold text-xl">Üniversitemiz</a>
+    </div>
+</nav>
+
+<!-- BAŞLIK -->
+<header class="max-w-7xl mx-auto px-6 pt-16 pb-8 text-center reveal">
+    <span class="text-emerald-600 font-bold tracking-widest uppercase text-xs mb-4 block">Kampüs Verileri</span>
+    <h1 class="text-4xl md:text-6xl font-black text-gray-900 mb-6">Sürdürülebilirlik <span class="text-emerald-700">Raporu</span></h1>
+    <p class="text-xl text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">Üniversitemiz öğrencilerinin katılımıyla gerçekleştirilen anket sonuçları, iklim eylemi için yol haritamızı belirliyor.</p>
+</header>
+
+<!-- ANA İÇERİK -->
+<main class="max-w-7xl mx-auto px-6 py-12">
+
+    <!-- GRAFİK GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        
+        <!-- Kart 1: Ulaşım -->
+        <div class="card p-8 reveal">
+            <h3 class="font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-emerald-500 rounded-full"></span> Ulaşım Tercihleri
+            </h3>
+            <div class="chart-container">
+                <canvas id="transportChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Kart 2: Endişe -->
+        <div class="card p-8 reveal">
+            <h3 class="font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-red-500 rounded-full"></span> Endişe Seviyesi
+            </h3>
+            <div class="chart-container">
+                <canvas id="concernChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Kart 3: Geri Dönüşüm -->
+        <div class="card p-8 reveal">
+            <h3 class="font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-yellow-500 rounded-full"></span> Atık Yönetimi Algısı
+            </h3>
+            <div class="chart-container">
+                <canvas id="recyclingChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Kart 4: Kriz Nedeni -->
+        <div class="card p-8 reveal">
+            <h3 class="font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-blue-500 rounded-full"></span> Temel Neden Algısı
+            </h3>
+            <div class="chart-container">
+                <canvas id="reasonChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Kart 5: Yönetim Puanı -->
+        <div class="card p-8 reveal">
+            <h3 class="font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-purple-500 rounded-full"></span> Kurumsal Başarı Puanı
+            </h3>
+            <div class="chart-container">
+                <canvas id="managementChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Kart 6: Eğitim Oranı -->
+        <div class="card p-8 reveal">
+            <h3 class="font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <span class="w-2 h-6 bg-orange-500 rounded-full"></span> Müfredat Farkındalığı
+            </h3>
+            <div class="chart-container">
+                <canvas id="educationChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ÖNERİLER BÖLÜMÜ -->
+    <section class="mb-24 reveal">
+        <div class="bg-emerald-900 rounded-[3rem] p-10 md:p-16 text-white relative overflow-hidden shadow-2xl">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-800 rounded-full -mr-20 -mt-20 opacity-40 blur-3xl"></div>
+            
+            <h3 class="text-3xl font-black mb-10 text-center">Öğrenci Sesine Kulak Verin</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                    <p class="text-emerald-100 italic">"Geri dönüşüm kutuları sadece giriş katlarda değil, her koridorda bulunmalı."</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                    <p class="text-emerald-100 italic">"Kampüste plastik şişe kullanımını azaltmak için su sebilleri artırılmalı."</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                    <p class="text-emerald-100 italic">"Yeşil alanlarda daha fazla ağaçlandırma yapılmalı ve mevcutlar korunmalı."</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                    <p class="text-emerald-100 italic">"İklim krizi her bölümün zorunlu bir dersi haline getirilmeli."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM BÖLÜMÜ -->
+    <section class="max-w-4xl mx-auto mb-20 reveal">
+        <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-gray-100">
+            <div class="bg-yellow-400 py-3 px-8 text-center font-bold text-emerald-900 uppercase tracking-tighter text-sm">
+                Senin Görüşün Geleceği Şekillendirir
+            </div>
+            <div class="p-8 md:p-12">
+                <h3 class="text-3xl font-black text-gray-900 mb-2 text-center">Kampüs Görüş Formu</h3>
+                <p class="text-gray-500 text-center mb-10">Fikirlerini paylaşarak değişimin parçası ol.</p>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase mb-2 ml-2">Ad Soyad</label>
+                            <input type="text" placeholder="Adınız" class="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-yellow-400 focus:bg-white outline-none transition duration-300">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase mb-2 ml-2">E-Posta</label>
+                            <input type="email" placeholder="E-posta" class="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-yellow-400 focus:bg-white outline-none transition duration-300">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2 ml-2">Öneri Kategorisi</label>
+                        <select class="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-yellow-400 focus:bg-white outline-none transition duration-300 appearance-none">
+                            <option>Atık ve Geri Dönüşüm</option>
+                            <option>Enerji Tasarrufu</option>
+                            <option>Ulaşım ve Emisyon</option>
+                            <option>Farkındalık ve Eğitim</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2 ml-2">Mesajın / Önerin</label>
+                        <textarea rows="4" placeholder="Nasıl daha yeşil bir kampüs olabiliriz?" class="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-yellow-400 focus:bg-white outline-none transition duration-300 resize-none"></textarea>
+                    </div>
+
+                    <button type="button" onclick="alert('Mesajınız başarıyla simüle edildi. Teşekkürler!')" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-black py-5 rounded-2xl shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98] uppercase tracking-widest text-sm">
+                        Görüşümü Gönder
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-emerald-950 text-white pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+        <div class="md:col-span-2">
+            <h4 class="text-3xl font-black mb-6 tracking-tighter text-yellow-400 uppercase italic">İKLİM EYLEMİ</h4>
+            <p class="text-emerald-100/70 leading-relaxed text-lg font-light italic">"Bugünün verisi, yarının eylemidir."</p>
+        </div>
+        <div>
+            <h5 class="font-bold mb-6 uppercase tracking-widest text-sm text-yellow-400 border-l-4 border-yellow-400 pl-3">Navigasyon</h5>
+            <ul class="space-y-4 text-emerald-100/80">
+                <li><a href="index.html" class="hover:text-yellow-400 transition">Ana Sayfa</a></li>
+                <li><a href="sorunlar.html" class="hover:text-yellow-400 transition">Sorunlar</a></li>
+                <li><a href="cozumler.html" class="hover:text-yellow-400 transition">Çözümler</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-bold mb-6 uppercase tracking-widest text-sm text-yellow-400 border-l-4 border-yellow-400 pl-3">Küresel Hedef</h5>
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-emerald-600 flex items-center justify-center font-black text-2xl rounded-xl">13</div>
+                <p class="text-xs leading-tight opacity-70">SKA: İKLİM EYLEMİ ANALİZİ</p>
+            </div>
+        </div>
+    </div>
+    <p class="text-center mt-10 text-[10px] opacity-40 tracking-[0.3em] uppercase">© 2025 KAMPÜS İKLİM İNİSİYATİFİ</p>
+</footer>
+
+<!-- SCRIPTS -->
+<script>
+    // Mobil Menü Toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Reveal Animasyonu (IntersectionObserver)
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Chart.js Konfigürasyonları
+    const chartDefaults = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10, family: 'Inter' } } }
+        }
+    };
+
+    // 1. Ulaşım
+    new Chart(document.getElementById('transportChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Yürüyüş/Bisiklet', 'Servis', 'Toplu Taşıma', 'Şahsi'],
+            datasets: [{ data: [36, 28, 24, 12], backgroundColor: ['#10b981', '#34d399', '#fbbf24', '#f87171'], borderWidth: 0 }]
+        },
+        options: chartDefaults
+    });
+
+    // 2. Endişe (Bar)
+    new Chart(document.getElementById('concernChart'), {
+        type: 'bar',
+        data: {
+            labels: ['1', '2', '3', '4', '5'],
+            datasets: [{ label: 'Endişe Puanı', data: [5, 15, 35, 25, 45], backgroundColor: '#ef4444', borderRadius: 5 }]
+        },
+        options: chartDefaults
+    });
+
+    // 3. Geri Dönüşüm (Doughnut)
+    new Chart(document.getElementById('recyclingChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Yetersiz', 'Kısmen', 'Yeterli'],
+            datasets: [{ data: [72, 20, 8], backgroundColor: ['#dc2626', '#f59e0b', '#10b981'], cutout: '70%' }]
+        },
+        options: chartDefaults
+    });
+
+    // 4. Neden Algısı (Radar)
+    new Chart(document.getElementById('reasonChart'), {
+        type: 'radar',
+        data: {
+            labels: ['Sanayi', 'Fosil Yakıt', 'Orman', 'Tüketim', 'Atık'],
+            datasets: [{ label: 'Önem Algısı', data: [80, 95, 70, 60, 50], backgroundColor: 'rgba(59, 130, 246, 0.2)', borderColor: '#3b82f6', pointBackgroundColor: '#3b82f6' }]
+        },
+        options: chartDefaults
+    });
+
+    // 5. Yönetim (Bar)
+    new Chart(document.getElementById('managementChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Enerji', 'Atık', 'Yeşil Alan', 'Ulaşım'],
+            datasets: [{ label: 'Puan (10 Üzerinden)', data: [4, 3, 6, 5], backgroundColor: '#a855f7', borderRadius: 5 }]
+        },
+        options: { ...chartDefaults, indexAxis: 'y' }
+    });
+
+    // 6. Eğitim (PolarArea)
+    new Chart(document.getElementById('educationChart'), {
+        type: 'polarArea',
+        data: {
+            labels: ['Bahsedilmiyor', 'Nadir', 'Sıkça'],
+            datasets: [{ data: [48, 44, 8], backgroundColor: ['#64748b99', '#f9731699', '#10b98199'] }]
+        },
+        options: chartDefaults
+    });
+</script>
+
+</body>
+</html>

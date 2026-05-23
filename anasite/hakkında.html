@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Hakkında | Küresel Amaçlar Projesi</title>
+    
+    <link rel="icon" type="image/png" href="img/kureselamaclar-yenilogo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"> <!-- Bu kod, web sitemize binlerce hazır simg eklememizi sağlayan, dünyanın en popüler ikon kütüphanesi olan Font Awesome'ı projemize bağlayan bir "köprü"dür. -->
+
+    <style>
+        /*
+           GENEL SIFIRLAMA VE GÜVENLİK AYARLARI
+           (Sayfanın bozulmaması için en kritik yer burasıdır) */
+        
+        /* Tüm elementler (*) için geçerli kural */
+        * {
+            /* Kutu modelini sabitler. Padding (iç boşluk) eklediğimizde kutunun dışa doğru şişmesini engeller.
+               Böylece yan yana duran kutular aşağı kaymaz. */
+            box-sizing: border-box; 
+        }
+
+        /* burada tarayıcının kendine ait varsayılan boşluklarını (margin/padding) sıfırlıyoruz.
+           Böylece sayfa kenarlarında beyaz boşluk kalmaz. */
+        body, h1, h2, h3, h4, p, ul, li, figure, blockquote {
+            margin: 0; 
+            padding: 0; 
+        }
+
+        /* HTML elementinin genel ayarlarını yapıyouruz */
+        html { 
+            /* Menüdeki linklere tıklandığında sayfanın tak diye değil, kayarak gitmesini sağlar */
+            scroll-behavior: smooth; 
+        }
+
+        /* Body ayarları */
+        body {
+            /* Yazı tipini Roboto yapıyoruz */
+            font-family: 'Roboto', sans-serif;
+            /* Arka plan rengi çok açık gri  */
+            background-color: #f0f2f5;
+            /* Genel yazı rengi (Koyu gri) */
+            color: #333;
+            /* Yatay kaydırma çubuğunu gizle , Sağa sola taşmayı engeller */
+            overflow-x: hidden;
+        }
+        
+        /* Link (a) etiketi genel ayarları */
+        a { 
+            text-decoration: none; /* Linklerin altındaki varsayılan çizgiyi kaldırır */
+            color: inherit; /* Rengi üstündeki kutudan miras alır. miras almanın açıklaması normalde linkler mavidir ama bu kodu yazdığımız zaman içindeki kodun rengini almasını sağlıyoruz. buna da miras almak deniliyor kısacası. */
+            transition: 0.3s; /* Üzerine gelince renk değişim hızını ayarlar */
+        }
+        
+        /* Liste (ul) genel ayarları */
+        ul { 
+            list-style: none; /* Listenin başındaki madde noktalarını kaldırır */
+        }
+
+        /* ÜST MENÜ TASARIMI */
+           header {
+            /* Arka plan beyaz ama çok az (%1) şeffaf */
+            background: rgba(255, 255, 255, 0.99);
+            /* havada duruyor hissi verebilmek için altına hafif bir gölge ekliyoruz  */
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            /* Menüyü sayfaya "yapıştır". Sayfa aşağı kaydıkça o da gelir. */
+            position: sticky;
+            top: 0; /* En üstte durmasını sağlar */
+            z-index: 9999; /* Katman sırası,,, Her şeyin üstünde görünsün */
+            padding: 10px 0; /* İç boşluk */
+            border-bottom: 1px solid #e1e1e1; /* Altına ince gri çizgi çeker */
+            backdrop-filter: blur(10px); /* Arkadaki renkleri buzlu cam gibi gösterir */
+        }
+
+        /* Header içindeki düzenleyici kutu */
+        .header-container {
+            max-width: 1400px; /* Genişlik sınırı (Logolar sığsın diye genişlettik) */
+            margin: 0 auto; /* Ortala */
+            display: flex; /* Yan yana dizme modu (Flexbox) */
+            justify-content: space-between; /* Bir grubu sola, diğerini sağa yasla */
+            align-items: center; /* Dikeyde ortalasın */
+            padding: 0 30px; /* Yanlardan boşluk olsun */
+        }
+
+        /* SOL TARAFTAKİ LOGO GRUBU (PROJE + AKÜ)  */
+        .header-left-group {
+            display: flex; /* İçindekileri yan yana diziyoruz */
+            align-items: center; /* Ortalıyoruz */
+            gap: 15px; /* Elemanlar arası boşluk koyuyoruz */
+        }
+
+        /* 1. Bizim Proje Logomuz */
+        .project-logo img { 
+            height: 50px; /* Yükseklik sabit kalsın */
+            width: auto; /* Genişlik orantılı olsun */
+            display: block; /* burası kaymayı önler */
+            transition: transform 0.3s; /* Büyüme efekti süresi 0.3s olarak ayarlıyorum*/
+        }
+        .project-logo img:hover { 
+            transform: scale(1.05); /* Üzerine gelince %5 büyüsün */
+        }
+
+        /* logo arası daha güzel gözüksün diye çizgi ekliyorum - 2. Aradaki Dikey Çizgi (Ayraç) */
+        .header-divider {
+            height: 35px; /* Boyu */
+            width: 1px; /* Kalınlığı */
+            background-color: #ccc; /* Rengi */
+        }
+
+        /* 3. AKÜ Kurumsal Alanı */
+        .aku-branding {
+            display: flex; /* Yan yana */
+            align-items: center; /* Ortala */
+            gap: 12px; /* Resim ve yazı arası boşluk */
+        }
+        .aku-branding img {
+            height: 45px; /* Logo boyutu */
+            border-radius: 50%; /* Yuvarlak yap */
+        }
+        .aku-branding span {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem; /* Yazı boyutu Kibar olsun diye küçük yapıyorum */
+            color: #444; 
+            font-weight: 700; /* Kalın yazı */
+            line-height: 1.2; /* Satır aralığı */
+            display: block; /* kaymayı önler */
+        }
+
+        /*  SAĞ TARAFTAKİ MENÜ LİNKLERİ */
+        nav ul { 
+            display: flex; /* Yan yana diz */
+            gap: 30px; /* Linkler arası mesafe 30px yapıyoruz */
+        }
+        
+        nav ul li a {
+            font-family: 'Poppins', sans-serif; /* burada yazı tipini poppins olarak ayarladım eğer internet yoksa veya poppins yazı tipi yüklenmezse bilgisayarın standart düz yazısı sans-serif kullansın dedik */
+            font-weight: 600; /* Normal yazı 400dür, Kalın yazı (Bold) 700dür. Biz 600 yaparak "Yarı Kalın" (Semi-Bold) yaptık. Tok ve okunaklı durmasını sağlar. */
+            color: #444;
+            font-size: 0.95rem; /* yazı boyutunu ayarladık */
+            position: relative; /* Alt çizgi animasyonu için referans noktası */
+            display: block; /* kaymayı önler */
+        }
+        
+        /* Menü linki altındaki hareketli çizgi (CSS ile çiziyoruz) */
+        nav ul li a::after {
+            content: ''; /* Bu satır olmazsa çizgi oluşmaz. Tarayıcıya "Burada boş bir kutu yarat" deriz. İçine yazı yazmayacağımız için tırnakların içi boştur.*/
+            position: absolute; /* burası bağısız konumlandırmamızı sağlar */
+            width: 0; /* Başlangıçta çizgi yok genişlik 0 */
+            height: 3px; /* yükseklik ayarı */
+            bottom: -5px; /* Çizgiyi yazının tam altına yapıştırmak yerine, 5 piksel daha aşağıya iter. */
+            left: 0;
+            background-color: #009EDB; /* Mavi renk */
+            transition: 0.3s; /* animasyon */
+        }
+        /* Mouse üzerine gelince çizgi genişlesin istiyorum */
+        nav ul li a:hover::after { width: 100%; }
+        /* Yazı rengi mavi olsun */
+        nav ul li a:hover { color: #009EDB; }
+
+        /*  HERO (GİRİŞ) ALANI */
+        .about-hero {
+            /* Arka plan: Koyu lacivert degrade */
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white; /* Yazı rengi */
+            text-align: center; /* Ortala */
+            padding: 120px 20px 160px; /* İç boşluklar */
+            margin-bottom: 60px; /* Altındaki boşluk */
+            /* Arka plan deseni (Texture) */
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+        }
+
+        .about-hero h1 {
+            font-family: 'Poppins', sans-serif; /* burada yazı tipini poppins olarak ayarladım eğer internet yoksa veya poppins yazı tipi yüklenmezse bilgisayarın standart düz yazısı sans-serif kullansın dedik */
+            font-size: 3.5rem; /* Büyük başlık */
+            margin-bottom: 15px; /* Altımdaki şey bana yapışmasın, 15 piksel aşağıda dursun demektir. */
+            font-weight: 800; /* Kalınlık */
+            letter-spacing: 2px; /* Harf aralığı */
+            animation: fadeInDown 1s ease; /* Giriş efekti */
+        }
+
+        .hero-slogan {
+            font-family: 'Poppins', sans-serif; /* (diğerleriyle aynı) burada yazı tipini poppins olarak ayarladım eğer internet yoksa veya poppins yazı tipi yüklenmezse bilgisayarın standart düz yazısı sans-serif kullansın dedik */
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #009EDB; /* Mavi vurgu */
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            text-transform: uppercase; /* Bu kod o kutunun içindeki tüm yazıları zorla BÜYÜK HARFE çevirir. */
+            opacity: 0; /* Başlangıçta gizli */
+            animation: fadeInDown 1s ease 0.3s forwards; /* Gecikmeli giriş */
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            max-width: 700px; /* Yazı çok yayılmasın */
+            margin: 0 auto; /* Sayfamdaiçerikler (yazılar, resimler) sola yapışık durmasın, ekranın ortasında derli toplu dursun diye bu kodu kullandım. */
+            color: #ccc;
+            line-height: 1.8; /* Satır Aralığı */
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards; /* Sayfa açılınca hemen fırlama, 0.6 saniye bekle. Sonra 1 saniye içinde, doğal bir hızla fadeInUp hareketini yap ve işin bitince sakın başa dönme, son halinde (görünür şekilde) kal dedik kısacası */
+        }
+
+        /* Animasyon Tanımları (Keyframes) */
+        /* Yukarıdan aşağı inme */
+        @keyframes fadeInDown { 
+            from { opacity: 0; transform: translateY(-30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        /* Aşağıdan yukarı çıkma */
+        @keyframes fadeInUp { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        /* ANA İÇERİK DÜZENİ */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto; /* Sayfada ortala */
+            padding: 0 20px; /* Kenarlara yapışmasın */
+            position: relative; /* Bu kod, içindeki hareketli parçalara "Sizin merkez noktanız benim, benden uzağa gitmeyin" diyen komuttur.*/
+        }
+
+        /* MİSYON VİZYON KARTLARI */
+        .mission-grid {
+            display: grid;
+            /* Responsive kolon yapısı: Min 300px, sığmazsa alt satıra insin */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; /* resim yazı arası boşluk */
+            margin-bottom: 100px;
+            margin-top: -100px; /* Hero alanının üzerine bindirme efekti koyuyoruz */
+            position: relative;
+            z-index: 10; /* Bu kod, web sayfasındaki "Katman Sırasını" (Derinliği) belirler. */
+        }
+
+        .info-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center; /* text-align: center; ise Bulunduğun kutunun içindeki her şeyi (yazı, resim, buton) yatay eksende tam ortala demektir. */
+            transition: 0.3s;
+            border-bottom: 5px solid transparent;
+            /* Scroll Reveal Başlangıç: Aşağıda ve görünmez */
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        /* JS ile eklenecek "Görünür Ol" sınıfı */
+        .info-card.active { opacity: 1; transform: translateY(0); }
+        
+        .info-card:hover { 
+            transform: translateY(-10px) !important; /* Kart havaya kalksın */
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15); /* Gölge büyüsün */
+        }
+        
+        .card-icon { font-size: 3.5rem; margin-bottom: 20px; display: block; }
+        .info-card h3 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; margin-bottom: 15px; color: #333; }
+        .info-card p { color: #666; line-height: 1.6; }
+        
+        /* Kartlara özel alt çizgi renkleri */
+        .card-blue { border-bottom-color: #009EDB; }
+        .card-red { border-bottom-color: #E5243B; }
+        .card-green { border-bottom-color: #27ae60; }
+
+        /* HİKAYEMİZ BÖLÜMÜ */
+        .story-section {
+            display: flex; /* Yan yana */
+            align-items: center; /* Ortala */
+            gap: 50px; /* resim yazı arası boşluk */
+            background: white;
+            padding: 60px; /* "İçerik kenarlara yapışmasın, içeriye doğru 60 piksel itilsin" demek. */
+            border-radius: 30px; /* Kutunun o sivri köşelerini alır ve yuvarlak hale getirir.*/
+            margin-bottom: 100px; /* Dış Boşluk (Alt taraf için). kutunun altına görünmez duvar örer */
+            box-shadow: 0 15px 50px rgba(0,0,0,0.05); /* kutu gölgesi */
+            /* Animasyon başlangıcı */
+            opacity: 0; transform: scale(0.95); transition: 0.8s ease;
+        }
+        .story-section.active { opacity: 1; transform: scale(1); }
+        
+        .story-content { flex: 1; /* Sol tarafı kapla */ }
+        .story-content h2 { 
+            font-family: 'Poppins', sans-serif; font-size: 2.2rem; color: #222; 
+            margin-bottom: 20px; position: relative; display: inline-block; 
+        }
+        /* Başlık altı çizgisi */
+        .story-content h2::after { 
+            content: ''; display: block; width: 60px; height: 4px; /* content: CSS ile HTML'de fiziksel olarak bulunmayan bir nesne yaratır. display: block; Oluşturulan bu hayali kutuyu bir "blok" haline getirir. */
+            background: #E5243B; margin-top: 10px; border-radius: 2px; 
+        }
+        .story-content p { color: #555; line-height: 1.8; margin-bottom: 20px; }
+        
+        /* Sağ taraf: Logolar */
+        .story-logos-container {
+            flex: 1; /* bu kısım alan paylaşımı yapar yani Eğer bu kutunun yanında başka bir kutu (mesela yazı kutusu) varsa kalan tüm boşluğu ben kaplayayım der. */
+            display: flex; /* esnek kutu modu yani benim içimdeki logoları hizalamaya başla komutudur.
+            flex-direction: column; /* Alt alta */
+            align-items: center; /* yatay Hizalama yapar sağa sola değil tam ortasına hizalar */
+            justify-content: center; /* buda tam tersi dikey hizalama yapar Logoları yukarı veya aşağı yapıştırmaz */
+            gap: 30px; /* İki logo birbirine yapışmasın diye aralarına 30 piksellik mesafe koyar. */
+            background: #f9f9f9;
+            padding: 40px; /* Logolar kutunun kenarlarına yapışmasın diye, içeriden 40 piksellik bir boşluk bırakır. */
+            border-radius: 20px; /* Kutunun köşelerini yumuşatır, modern hale getirir. */
+            border: 1px solid #eee;
+        }
+        .story-logos-container img { 
+            width: 180px; height: auto; 
+            filter: grayscale(10%); /* Siyah beyaz yap */
+            transition: transform 0.3s; display: block; 
+        }
+        .story-logos-container img:hover { 
+            transform: scale(1.1); filter: grayscale(0%); /* Renkleri geri getir */
+        }
+
+        /* DEĞERLERİMİZ BÖLÜMÜ */
+        .values-section { text-align: center; margin-bottom: 100px; } /* text-align: center; ise Bulunduğun kutunun içindeki her şeyi (yazı, resim, buton) yatay eksende tam ortala demektir. */
+        .section-title { font-family: 'Poppins', sans-serif; font-size: 2.2rem; color: #222; margin-bottom: 50px; text-transform: uppercase; }
+        .values-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; } /* display-flex Logo ve menüyü yan yana diz, justify-content: center; Yatayda Ortala flex-wrap: wrap; Sığmayanları Alt Satıra At */
+        
+        .value-item {
+            background: white; padding: 30px; border-radius: 15px; width: 220px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #eee;
+            opacity: 0; transform: translateY(20px); transition: 0.5s ease;
+        }
+        .value-item.active { opacity: 1; transform: translateY(0); }
+        .value-item:hover { transform: translateY(-5px); border-color: #009EDB; }
+        .value-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; } /* font-size: 2.5rem; Yazının boyutunu belirler, margin-bottom: 15px; Alt Boşluk, display: block; Bu elemanı bir "blok" yapar. */
+        .value-item h4 { margin: 0; font-size: 1.2rem; color: #444; margin-bottom: 10px; }
+
+        /* YOL HARİTASI */
+        .timeline-section { margin-bottom: 100px; padding: 0 20px; }
+        .timeline-container { max-width: 800px; margin: 0 auto; position: relative; }
+        /* Ortadaki dikey çizgi */
+        .timeline-container::after { 
+            content: ''; position: absolute; width: 6px; background-color: #e0e0e0; 
+            top: 0; bottom: 0; left: 50%; margin-left: -3px; border-radius: 3px; 
+        }
+        .timeline-item { 
+            padding: 10px 40px; position: relative; background-color: inherit; 
+            width: 50%; box-sizing: border-box; opacity: 0; transition: all 0.8s ease; 
+        }
+        /* Sol ve Sağ konumlandırma */
+        .left { left: 0; text-align: right; transform: translateX(-50px); } 
+        .right { left: 50%; text-align: left; transform: translateX(50px); }
+        .timeline-item.active { opacity: 1; transform: translateX(0); }
+        /* Çizgi üzerindeki noktalar */
+        .timeline-item::after { 
+            content: ''; position: absolute; width: 25px; height: 25px; right: -13px; 
+            background-color: white; border: 4px solid #009EDB; top: 20px; border-radius: 50%; z-index: 1; 
+        }
+        .right::after { left: -12px; }
+        .timeline-content { padding: 20px 30px; background-color: white; position: relative; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .timeline-content h2 { margin-top: 0; font-size: 1.2rem; color: #333; }
+        .timeline-content span { font-size: 0.85rem; color: #E5243B; font-weight: bold; display: block; margin-bottom: 10px; }
+        .timeline-content p { margin: 0; font-size: 0.95rem; color: #666; }
+
+        /* PARALLAX SÖZ ALANI */
+        .parallax-quote {
+            background-image: url('https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=2070&auto=format&fit=crop');
+            min-height: 350px; background-attachment: fixed; background-position: center; background-size: cover; /* background-attachment: fixed; kısmında koda Arka planı sabitle diyoruz. background-position: center;: Resmin tam ortasını gösterir.  */
+            background-repeat: no-repeat; display: flex; align-items: center; justify-content: center; /* background-repeat: no-repeat;: Resim küçükse kendini tekrar etmesin, tek bir tane olsun.*/
+            text-align: center; color: #333; margin-bottom: 100px; position: relative;
+            border-radius: 30px; margin-left: 20px; margin-right: 20px; overflow: hidden;
+        }
+        .parallax-overlay { background: rgba(255, 255, 255, 0.75); padding: 60px; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .parallax-quote blockquote { font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 600; font-style: italic; max-width: 800px; margin: 0; line-height: 1.5; color: #222; }
+        .parallax-quote cite { display: block; margin-top: 20px; font-size: 1.1rem; font-weight: bold; color: #009EDB; text-transform: uppercase; letter-spacing: 2px; }
+
+        /*  TEKNOLOJİ BÖLÜMÜ  */
+        .tech-section { background: white; color: #333; padding: 60px; border-radius: 20px; margin-bottom: 100px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 5px solid #009EDB; opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
+        .tech-section.active { opacity: 1; transform: translateY(0); }
+        .tech-badges { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 30px; }
+        .tech-badge { background: #f0f2f5; color: #333; padding: 10px 25px; border-radius: 30px; font-weight: bold; border: 1px solid #ddd; transition: 0.3s; cursor: default; }
+        .tech-badge:hover { background: #009EDB; color: white; border-color: #009EDB; transform: translateY(-3px); }
+
+        /* SIK SORULAN SORULAR */
+        .faq-section { margin-bottom: 100px; } .faq-container { max-width: 800px; margin: 0 auto; }
+        details { background: white; margin-bottom: 15px; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; }
+        details[open] { border-left: 5px solid #009EDB; }
+        summary { font-weight: bold; font-size: 1.1rem; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        summary::after { content: '+'; font-size: 1.5rem; font-weight: bold; color: #009EDB; }
+        details[open] summary::after { content: '-'; color: #E5243B; }
+        .faq-answer { margin-top: 15px; color: #666; line-height: 1.6; padding-top: 10px; border-top: 1px solid #eee; }
+
+        /* 5. İLETİŞİM BÖLÜMÜ (HARİTA VE FORM) */
+        .contact-section { margin-bottom: 100px; opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .contact-section.active { opacity: 1; transform: translateY(0); }
+        
+        .contact-container { 
+            display: flex; /* Harita ve formu yan yana koymamızı sağlıyor bu kod */
+            gap: 30px; /* iki kutu arasına Arada boşluk bırakıyoruz */
+            background: white; 
+            padding: 40px; /* bir kutunun içindeki boşluk gap ile arasındaki fark budur */
+            border-radius: 20px; /* köşeleri yumuşatmaya yarar */  
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* havaya kaldırma 3d efekti kodu 0 olan gölge sağa veya sola kaymasın tam ortada dursun demek, 10px gölge aşağı doğru 10 piksel kaysın demek, 30px bulanıklık verir öbürü de renk */
+        }
+        
+        /* SOL TARAF: HARİTA KUTUSU */
+        .contact-map { 
+            flex: 1; /* Yarım alan kapla */
+            border-radius: 15px; /* sivri kısımları yumuştmak için */
+            overflow: hidden; /* bu ksıım Kutunun sınırlarından dışarı taşan her şeyi kes ve gizle demektir */
+            min-height: 450px; /* Harita yüksekliği 450px ayarlıyoruz */
+        }
+        .contact-map iframe { width: 100%; height: 100%; border: 0; }
+        
+        /* SAĞ TARAF: FORM KUTUSU */
+        .contact-form { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .contact-form h3 { font-family: 'Poppins', sans-serif; font-size: 1.8rem; color: #222; margin-bottom: 20px; }
+        
+        /* Form elemanları */
+        .form-group { margin-bottom: 20px; }
+        .form-input { 
+            width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; /* border 1px solid kısmı 1px kalınlık, solid düz kesik bir çizgi olsun , #ddd renk demektir. radius zaten köşe yumuşatma */
+            font-family: 'Roboto', sans-serif; font-size: 1rem; background: #f9f9f9; 
+            transition: 0.3s; box-sizing: border-box; /* Taşmayı engeller */
+        }
+        .form-input:focus { border-color: #009EDB; outline: none; background: white; box-shadow: 0 0 10px rgba(0, 158, 219, 0.1); }
+        
+        /* Gönder Butonu */
+        .submit-btn { 
+            background: #009EDB; color: white; padding: 15px 30px; border: none; 
+            border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; 
+            transition: 0.3s; width: 100%; 
+        }
+        .submit-btn:hover { background: #007bb5; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 158, 219, 0.3); }
+        
+        /* Başarılı Gönderim Mesajı (Başlangıçta gizli) */
+        .success-message { 
+            display: none; text-align: center; background: #e8f5e9; color: #2e7d32; /* text-align: center; ise Bulunduğun kutunun içindeki her şeyi (yazı, resim, buton) yatay eksende tam ortala demektir. */
+            padding: 40px; border-radius: 15px; border: 1px solid #c8e6c9; 
+        }
+        .success-message h3 { font-size: 2rem; margin-bottom: 10px; }
+        .reset-btn { background: #2e7d32; color: white; padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; }
+
+        /* İSTATİSTİKLER  */
+        .stats-bar { 
+            background: linear-gradient(135deg, #009EDB, #00609d); color: white; padding: 60px 20px; 
+            border-radius: 20px; display: flex; justify-content: space-around; text-align: center; 
+            flex-wrap: wrap; margin-bottom: 80px; box-shadow: 0 20px 40px rgba(0, 158, 219, 0.3); /* flex-wrap: wrap; Akıllı Satır Atlatıcı */
+            opacity: 0; transform: translateY(30px); transition: all 0.8s ease; 
+        }
+        .stats-bar.active { opacity: 1; transform: translateY(0); }
+        .stat-item { margin: 20px; max-width: 250px; }
+        .stat-number { font-family: 'Poppins', sans-serif; font-size: 3.5rem; font-weight: 800; display: block; margin-bottom: 5px; text-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .stat-label { font-size: 1rem; opacity: 0.95; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        .stat-desc { display: block; font-size: 0.85rem; font-weight: 400; opacity: 0.8; margin-top: 5px; }
+
+        /* FOOTER (ALT KISIM) */
+        footer { 
+            background: #1a1a2e; /* Koyu lacivert */
+            color: #fff; /* Beyaz yazı */
+            padding: 50px 20px; 
+            text-align: center; /* Kısaca  yazıları bulunduğu kutunun tam ortasına getir demektir. */
+        }
+        /* Footer içindeki sosyal medya ikonları kapsayıcısı */
+        .social-icons { margin-bottom: 20px; }
+        
+        /* İkonların stili */
+        .social-icon { 
+            color: white; 
+            font-size: 1.5rem; /* İkon büyüklüğü */
+            margin: 0 15px; /* Aralarındaki boşluk */
+            transition: 0.3s; /* animasyon süresi */
+        }
+        /* Üzerine gelince mavi olsun */
+        .social-icon:hover { color: #009EDB; }
+
+        /* 6. MOBİL UYUMLULUK (RESPONSIVE) mobil uyumluluk diğer sayfalardakiler gibi yapay zeka desteğiyle yapıldı! */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; padding: 10px; }
+            /* Logoları alt alta al */
+            .header-left-group { flex-direction: column; text-align: center; gap: 10px; }
+            .header-divider { display: none; } /* Ayracı gizle */
+            .aku-branding span { font-size: 0.65rem; } /* Yazıyı küçült */
+            
+            nav ul { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .about-hero h1 { font-size: 2.5rem; }
+            .hero-slogan { font-size: 1rem; }
+            .mission-grid { margin-top: 30px; }
+            .story-section { flex-direction: column; padding: 30px; text-align: center; }
+            .story-content h2::after { margin: 10px auto; }
+            .story-img img { height: auto; }
+            .stats-bar { flex-direction: column; gap: 40px; }
+            .timeline-container::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .left { text-align: left; } .right { left: 0; } .timeline-item::after { left: 18px; }
+            .left, .right { transform: translateY(30px); }
+            .contact-container { flex-direction: column; } /* Mobilde harita ve form alt alta */
+            .contact-map { min-height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            
+            <div class="header-left-group">
+                <a href="index.html" class="project-logo">
+                    <img src="img/kureselamaclar-yenilogo.png" alt="Küresel Amaçlar Projesi">
+                </a>
+                
+                <div class="header-divider"></div>
+                
+                <a href="https://aku.edu.tr" target="_blank" class="aku-branding">
+                     <img src="img/afyonkocatepelogo.jpg" alt="AKÜ Logosu">
+                     <span>Afyon Kocatepe Üniversitesi<br>Sürdürülebilirlik Koordinatörlüğü</span>
+                </a>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">ANA SAYFA</a></li>
+                    <li><a href="harekete-gec.html">HAREKETE GEÇ</a></li>
+                    <li><a href="neyapabilirim.html">NE YAPABİLİRİM?</a></li>
+                    <li><a href="skanedir.html">SKA NEDİR?</a></li>
+                    <li><a href="hakkında.html" style="color: #009EDB;">HAKKINDA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="about-hero">
+        <h1>BİZ KİMİZ?</h1>
+        <div class="hero-slogan">17 AMAÇ • TEK GEZEGEN • ORTAK GELECEK</div>
+        <p>Sürdürülebilir bir gelecek için farkındalık yaratmayı amaçlayan, teknolojiyi iyilik için kullanan üniversite öğrencileriyiz.</p>
+    </section>
+
+    <main class="container">
+
+        <div class="mission-grid">
+            <div class="info-card card-blue">
+                <span class="card-icon">🎯</span>
+                <h3>Amacımız</h3>
+                <p>Birleşmiş Milletler'in belirlediği 17 Küresel Amacı herkese anlatmak ve "Ben tek başıma ne yapabilirim ki?" diyenleri harekete geçirmek.</p>
+            </div>
+            <div class="info-card card-red">
+                <span class="card-icon">🚀</span>
+                <h3>Misyonumuz</h3>
+                <p>Karmaşık küresel sorunları, basit ve uygulanabilir günlük alışkanlıklara dönüştürerek toplumda bir kelebek etkisi yaratmak.</p>
+            </div>
+            <div class="info-card card-green">
+                <span class="card-icon">🌱</span>
+                <h3>Vizyonumuz</h3>
+                <p>Daha adil, daha yeşil ve kimsenin geride bırakılmadığı bir dünya için dijital çözümler üreten öncü bir platform olmak.</p>
+            </div>
+        </div>
+
+        <section class="story-section">
+            <div class="story-content">
+                <h2>Bu Proje Nasıl Doğdu?</h2>
+                <p>
+                    Her şey <strong>Afyon Kocatepe Üniversitesi</strong> Web Tasarım dersinde verilen bir final projesiyle başladı. Başlangıçta sadece bir "ödev" gibi görünen bu çalışma, araştırdıkça bizi içine çeken bir sorumluluk hareketine dönüştü.
+                </p>
+                <p>
+                    Ekip olarak fark ettik ki; insanlar dünyayı kurtarmak istiyor ama nereden başlayacaklarını bilmiyorlar. Biz de <strong>&lt;Body&gt; Guards</strong> ekibi olarak, teknik becerilerimizi sosyal bir sorumlulukla birleştirmeye karar verdik.
+                </p>
+                <p>
+                    Bu web sitesi, karmaşık raporların içinde kaybolmak istemeyen ama geleceği önemseyen herkes için tasarlandı.
+                </p>
+            </div>
+            
+            <div class="story-logos-container">
+                <img src="img/afyonkocatepelogo.jpg" alt="Afyon Kocatepe Üniversitesi Logosu">
+                <img src="img/iibf-logo.jpg" alt="AKÜ İİBF Logosu">
+            </div>
+        </section>
+
+        <section class="values-section">
+            <h2 class="section-title">Bizi Harekete Geçiren Değerler</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <span class="value-icon">💡</span>
+                    <h4>Farkındalık</h4>
+                    <p>Sorunları görmezden gelmek yerine, onları anlamayı seçiyoruz.</p>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">🛡️</span>
+                    <h4>Sorumluluk</h4>
+                    <p>Gezegenin geleceği için üzerimize düşen görevi biliyoruz.</p>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">🤝</span>
+                    <h4>Kapsayıcılık</h4>
+                    <p>"Kimseyi geride bırakma" ilkesiyle herkes için eşitlik istiyoruz.</p>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">⚡</span>
+                    <h4>Eylem</h4>
+                    <p>Sadece konuşmuyor, değişimi başlatmak için adım atıyoruz.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline-section">
+            <h2 class="section-title" style="text-align: center;">Geliştirme Sürecimiz</h2>
+            <div class="timeline-container">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <span>1. HAFTA</span>
+                        <h2>Fikir & Araştırma</h2>
+                        <p>BM raporları incelendi, "Küresel Amaçlar" teması seçildi ve içerik stratejisi oluşturuldu.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <span>2. HAFTA</span>
+                        <h2>Tasarım (UI/UX)</h2>
+                        <p>Renk paleti (Mavi & Kırmızı) belirlendi, kağıt üzerinde taslaklar çizildi ve yerleşim planlandı.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <span>3. HAFTA</span>
+                        <h2>Kodlama (HTML/CSS)</h2>
+                        <p>Ana iskelet oluşturuldu, Flexbox ve Grid yapıları kuruldu, responsive (mobil) ayarlar yapıldı.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <span>4. HAFTA</span>
+                        <h2>İnteraktivite (JS)</h2>
+                        <p>Scroll efektleri, animasyonlar ve dinamik bileşenler eklenerek siteye hayat verildi.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="parallax-quote">
+            <div class="parallax-overlay">
+                <blockquote>
+                    "Dünyayı değiştirmek için sihire ihtiyacımız yok; ihtiyacımız olan gücü zaten içimizde taşıyoruz."
+                </blockquote>
+                <cite>— J.K. Rowling</cite>
+            </div>
+        </section>
+
+        <section class="tech-section">
+            <h2>💻 Teknolojik Yaklaşımımız</h2>
+            <p>Bu proje, modern web standartlarına uygun olarak, kullanıcı deneyimi (UX) odaklı bir şekilde geliştirilmiştir.</p>
+            <div class="tech-badges">
+                <div class="tech-badge">HTML5 Semantic</div>
+                <div class="tech-badge">CSS3 Flexbox & Grid</div>
+                <div class="tech-badge">JavaScript DOM</div>
+                <div class="tech-badge">Responsive Design</div>
+                <div class="tech-badge">Scroll Reveal Animations</div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <h2 class="section-title" style="text-align: center;">Merak Edilenler</h2>
+            <div class="faq-container">
+                <details>
+                    <summary>Bu proje kar amacı güdüyor mu?</summary>
+                    <div class="faq-answer">Hayır, bu proje tamamen farkındalık yaratmak amacıyla geliştirilmiş, kar amacı gütmeyen bir öğrenci girişimidir.</div>
+                </details>
+                <details>
+                    <summary>Neden "Küresel Amaçlar"?</summary>
+                    <div class="faq-answer">Çünkü gezegenimizin karşı karşıya olduğu sorunlar (iklim, yoksulluk, eşitsizlik) sınır tanımaz. Çözüm de ancak küresel bir planla mümkündür.</div>
+                </details>
+                <details>
+                    <summary>Sizlere nasıl katılabilirim?</summary>
+                    <div class="faq-answer">Bize sosyal medya hesaplarımızdan ulaşabilir veya "Harekete Geç" sayfasındaki önerileri uygulayarak bu hareketin bir parçası olabilirsin!</div>
+                </details>
+                <details>
+                    <summary>Sitedeki görselleri kullanabilir miyim?</summary>
+                    <div class="faq-answer">Evet, projemiz açık kaynak felsefesini benimser. Kaynak göstermek şartıyla içeriklerimizi farkındalık için kullanabilirsiniz.</div>
+                </details>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <h2 class="section-title" style="text-align: center;">Bize Ulaşın</h2>
+            <div class="contact-container">
+                
+                <div class="contact-map">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=Afyon+Kocatepe+%C3%9Cniversitesi&t=&z=13&ie=UTF8&iwloc=&output=embed" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">  <!-- Yol güvenliyse kimliğini göster, yol tehlikeliyse gizli kal" demektir. -->
+                    </iframe>
+                </div>
+
+                <div class="contact-form">
+                    <div id="form-container">
+                        <h3>Mesaj Gönder</h3>
+                        <form id="contactForm"> 
+                            <div class="form-group">
+                                <input type="text" name="isim" class="form-input" placeholder="Adınız Soyadınız" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-input" placeholder="E-posta Adresiniz" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="mesaj" class="form-input" rows="5" placeholder="Mesajınız..." required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">GÖNDER</button>
+                        </form>
+                    </div>
+
+                    <div class="success-message" id="successMessage">
+                        <h3>Teşekkürler! 🎉</h3>
+                        <p>Mesajınız tarafımıza başarıyla ulaştı. En kısa sürede size dönüş yapacağız.</p>
+                        <button class="reset-btn" onclick="resetForm()">Yeni Mesaj Gönder</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number">%15</span>
+                <span class="stat-label">Başarı Oranı</span>
+                <span class="stat-desc">Hedeflerin şu an sadece %15'i planlandığı gibi gidiyor.</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">1.3Milyar</span>
+                <span class="stat-label">Ton Gıda İsrafı</span>
+                <span class="stat-desc">Her yıl dünyada çöpe giden üretilmiş gıda miktarı.</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">2030</span>
+                <span class="stat-label">Son Tarih</span>
+                <span class="stat-desc">Gezegenimizi kurtarmak için belirlenen kritik hedef yılı.</span>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        
+        <div class="social-icons">
+            <a href="https://www.instagram.com/kureselamaclar/#" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/kureselamaclar" target="_blank" class="social-icon"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/kureselamaclar" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+        </div>
+
+        <p style="opacity: 0.8; font-size: 0.95rem;">
+            &copy; 2025 Küresel Amaçlar Web Tasarım Dersi Final Ödevi | Designed by 
+            <a href="ekibimiz.html" style="color: #009EDB; font-weight: bold; text-decoration: none;">&lt;Body&gt; Guards</a>
+        </p>
+    </footer>
+
+    <script>
+        // Sayfa kaydırıldığında (scroll), 'reveal' fonksiyonunu çalıştır
+        window.addEventListener('scroll', reveal);
+
+        // REVEAL FONKSİYONU: Elementlerin ekrana giriş animasyonunu kontrol eder
+        function reveal() {
+            // Animasyon uygulanacak tüm CSS sınıflarını seçtiriyoruz
+            var reveals = document.querySelectorAll('.info-card, .story-section, .stats-bar, .tech-section, .value-item, .timeline-item, .contact-section');
+
+            // Her bir element için döngü oluşturuyoruz
+            for (var i = 0; i < reveals.length; i++) {
+                
+                var windowHeight = window.innerHeight; // Pencere yüksekliği
+                var elementTop = reveals[i].getBoundingClientRect().top; // Elementin tepesi
+                var elementVisible = 100; // Görünürlük eşiği (pixel)
+
+                // Eğer element ekrana girdiyse
+                if (elementTop < windowHeight - elementVisible) {
+                    // 'active' sınıfını ekle (CSS'te bu sınıf opaklığı 1 yapar)
+                    reveals[i].classList.add('active'); 
+                }
+            }
+        }
+        
+        // Sayfa ilk açıldığında da fonksiyonu bir kez çalıştır (Boş kalmasın)
+        reveal();
+
+        // --------------------------------------------------------
+        // AJAX İLE FORM GÖNDERME KODU (SAYFA YENİLENMEDEN) normalde formu gönderirken kullandığım formsubmit sayfasına yönelndiriyordu 
+        // onu kaldırmak için ajaxı kullandım. bu sayede başka sayfaya gitmeden bizim mesajımız çıkıyor daha şık duruyor
+        // --------------------------------------------------------
+        
+        // Gerekli elementleri seçiyoruz
+        const form = document.getElementById('contactForm'); // Formun kendisi
+        const formContainer = document.getElementById('form-container'); // Formun kutusu
+        const successMessage = document.getElementById('successMessage'); // Gizli teşekkür mesajı
+
+        // Form gönderilmeye çalışıldığında (submit butonuna basılınca)
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Varsayılan işlemi (sayfa yenilemeyi) DURDUR
+
+            // Gönder butonunu seç ve yazısını değiştir (Kullanıcıya bilgi ver)
+            const submitBtn = form.querySelector('.submit-btn');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "GÖNDERİLİYOR...";
+            submitBtn.disabled = true; // Butona tekrar basılmasını engeller
+
+            // Formdaki verileri topla
+            const formData = new FormData(form);
+
+            // Verileri FormSubmit servisine arka planda gönder (Fetch API)
+            fetch("https://formsubmit.co/ajax/24kagankeremoz24@gmail.com", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json()) // Gelen cevabı oku
+            .then(data => {
+                // Gönderim başarılı olursa:
+                formContainer.style.display = 'none'; // Formu gizle
+                successMessage.style.display = 'block'; // Teşekkür mesajını göster
+                form.reset(); // Form kutularını temizle
+            })
+            .catch(error => {
+                // Hata olursa:
+                alert("Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.");
+                console.log(error); // Hatayı konsola yaz
+            })
+            .finally(() => {
+                // İşlem bitince (başarılı veya başarısız) butonu eski haline getir
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+
+        // "Yeni Mesaj Gönder" butonuna basınca çalışacak fonksiyon
+        function resetForm() {
+            successMessage.style.display = 'none'; // Mesajı gizle
+            formContainer.style.display = 'block'; // Formu geri getir
+        }
+
+    </script>
+
+</body>
+</html>

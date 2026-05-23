@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İklim Eylemi | Geleceği Kurtar</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #fdfdfb; 
+            color: #1a2e1a;
+        }
+
+        /* Cam Efekti Navigasyon */
+        .glass-nav { 
+            background: rgba(4, 120, 87, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Slider Ayarları */
+        .slider-container { 
+            border-radius: 2rem; 
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .slider-item { 
+            height: 650px; 
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(to top, rgba(6, 78, 59, 0.9) 0%, rgba(0, 0, 0, 0.3) 100%);
+        }
+
+        /* Kartlar ve Animasyonlar */
+        .info-card {
+            background: white;
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.1);
+            border-color: #10b981;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 20px rgba(253, 224, 71, 0.4);
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+<!-- NAVIGASYON -->
+<nav class="glass-nav sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 bg-yellow-400 rounded-xl flex items-center justify-center font-black text-emerald-900 group-hover:rotate-6 transition-transform">İE</div>
+            <span class="text-xl font-extrabold text-white tracking-tight">İKLİM <span class="text-yellow-400 text-shadow-sm">EYLEMİ</span></span>
+        </a>
+        
+        <!-- Masaüstü Linkler -->
+        <div class="hidden md:flex items-center gap-2">
+            <a href="index.html" class="text-white bg-white/20 px-5 py-2 rounded-full text-sm font-semibold tracking-wide">Ana Sayfa</a>
+            <a href="hedef.html" class="text-emerald-50 hover:bg-white/10 px-5 py-2 rounded-full text-sm font-medium transition">Hedef</a>
+            <a href="sorunlar.html" class="text-emerald-50 hover:bg-white/10 px-5 py-2 rounded-full text-sm font-medium transition">Sorunlar</a>
+            <a href="cozumler.html" class="text-emerald-50 hover:bg-white/10 px-5 py-2 rounded-full text-sm font-medium transition">Çözümler</a>
+            <a href="uni.html" class="ml-4 bg-yellow-400 text-emerald-900 px-6 py-2.5 rounded-full text-sm font-bold btn-glow transition-all">Üniversitemiz</a>
+        </div>
+
+        <!-- Mobil Menü Butonu -->
+        <button id="menu-btn" class="md:hidden text-white p-2 focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+    </div>
+
+    <!-- Mobil Menü İçeriği -->
+    <div id="mobile-menu" class="hidden md:hidden bg-emerald-900 border-t border-emerald-800 px-6 py-6 space-y-4">
+        <a href="index.html" class="block text-white text-lg font-semibold">Ana Sayfa</a>
+        <a href="hedef.html" class="block text-emerald-100 text-lg">Hedef</a>
+        <a href="sorunlar.html" class="block text-emerald-100 text-lg">Sorunlar</a>
+        <a href="cozumler.html" class="block text-emerald-100 text-lg">Çözümler</a>
+        <a href="uni.html" class="block bg-yellow-400 text-emerald-900 p-3 rounded-xl text-center font-bold">Üniversitemiz</a>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-6 py-8">
+    
+    <!-- SLIDER -->
+    <section class="slider-container relative">
+        <div id="slider" class="flex transition-transform duration-1000 cubic-bezier(0.4, 0, 0.2, 1)">
+            <!-- Slayt 1 -->
+            <div class="slider-item min-w-full relative flex items-center justify-center text-center p-6" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1920&q=80');">
+                <div class="hero-overlay absolute inset-0"></div>
+                <div class="relative z-10 max-w-4xl">
+                    <span class="inline-block px-4 py-1.5 bg-yellow-400 text-emerald-900 rounded-full text-xs font-bold tracking-widest mb-6 uppercase shadow-lg">Gelecek Bizim Elimizde</span>
+                    <h1 class="text-4xl md:text-7xl font-black text-white mb-6 leading-tight">Daha Yeşil Bir<br><span class="text-yellow-400 underline decoration-wavy decoration-emerald-400/50">Dünya</span> İçin El Ele</h1>
+                    <p class="text-emerald-50 text-lg md:text-xl mb-10 opacity-90 font-light">İklim kriziyle mücadelede her saniye kıymetli. Kampüsümüzden başlayarak dünyayı değiştirebiliriz.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="hedef.html" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 px-10 rounded-2xl shadow-xl transition-all hover:-translate-y-1">Harekete Geç</a>
+                        <a href="cozumler.html" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-bold py-4 px-10 rounded-2xl border border-white/30 transition-all">Çözümleri Gör</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Slayt 2 -->
+            <div class="slider-item min-w-full relative flex items-center justify-center text-center p-6" style="background-image: url('https://images.unsplash.com/photo-1473081556163-2a17de81fc97?auto=format&fit=crop&w=1920&q=80');">
+                <div class="hero-overlay absolute inset-0"></div>
+                <div class="relative z-10 max-w-4xl">
+                    <h1 class="text-4xl md:text-7xl font-black text-white mb-6 leading-tight">Verilerle<br>Kampüsümüz</h1>
+                    <p class="text-emerald-50 text-lg md:text-xl mb-10 opacity-90 font-light">Öğrencilerimizin farkındalık düzeyini ve üniversitemizin karbon ayak izini şeffafça paylaşıyoruz.</p>
+                    <a href="uni.html" class="inline-block bg-yellow-400 hover:bg-yellow-300 text-emerald-900 font-bold py-4 px-10 rounded-2xl shadow-xl transition-all hover:-translate-y-1">Analizleri İncele</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slider Kontrolleri -->
+        <button onclick="moveSlider(-1)" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-emerald-600 backdrop-blur-md text-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all border border-white/20 group" aria-label="Önceki Slayt">
+            <span class="text-2xl group-hover:-translate-x-1 transition-transform">❮</span>
+        </button>
+        <button onclick="moveSlider(1)" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-emerald-600 backdrop-blur-md text-white w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all border border-white/20 group" aria-label="Sonraki Slayt">
+            <span class="text-2xl group-hover:translate-x-1 transition-transform">❯</span>
+        </button>
+    </section>
+
+    <!-- ÖZELLİK KARTLARI -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-[-80px] relative z-20 px-4">
+        <div class="info-card p-8 shadow-2xl">
+            <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-3xl mb-6">🌡️</div>
+            <h3 class="text-xl font-bold mb-3 text-emerald-900">Kritik Eşik: 1.5°C</h3>
+            <p class="text-gray-600 text-sm leading-relaxed text-justify">Küresel ısınmayı sanayi öncesi seviyelerin 1.5 derece üzerinde tutmak, geri dönülemez felaketleri önlemek için tek yolumuz.</p>
+        </div>
+        <div class="info-card p-8 shadow-2xl">
+            <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-3xl mb-6">🌊</div>
+            <h3 class="text-xl font-bold mb-3 text-emerald-900">Yükselen Seviyeler</h3>
+            <p class="text-gray-600 text-sm leading-relaxed text-justify">Eriyen buzullar sadece kutupları değil, tüm kıyı şehirlerini ve tarım arazilerini tehdit ediyor. Zaman daralıyor.</p>
+        </div>
+        <div class="info-card p-8 shadow-2xl">
+            <div class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center text-3xl mb-6">♻️</div>
+            <h3 class="text-xl font-bold mb-3 text-emerald-900">Döngüsel Ekonomi</h3>
+            <p class="text-gray-600 text-sm leading-relaxed text-justify">Atığı kaynağında azaltarak ve geri dönüşümü kampüs kültürü haline getirerek karbon ayak izimizi %30 küçültüyoruz.</p>
+        </div>
+    </section>
+
+    <!-- HAKKINDA BÖLÜMÜ -->
+    <section class="py-28 text-center reveal">
+        <div class="inline-block p-3 bg-emerald-50 rounded-2xl mb-6">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Sustainable_Development_Goal_13.png" alt="SKA 13" class="w-24 h-24 object-contain">
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black text-emerald-900 mb-8 px-4">Sürdürülebilir Bir Yarın, <br>Bugünkü Kararımızdır.</h2>
+        <div class="w-24 h-1.5 bg-yellow-400 mx-auto mb-10 rounded-full"></div>
+        <p class="max-w-3xl mx-auto text-xl text-gray-600 leading-relaxed font-light px-4">
+            Bu platform, Birleşmiş Milletler'in <span class="font-bold text-emerald-700 underline decoration-yellow-400 decoration-2">13. Sürdürülebilir Kalkınma Amacı</span> doğrultusunda, üniversite topluluğumuzda farkındalık yaratmak ve somut çözümler üretmek amacıyla geliştirilmiştir.
+        </p>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-emerald-950 text-white pt-20 pb-10 mt-10">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+        <div class="md:col-span-2">
+            <h4 class="text-3xl font-black mb-6 tracking-tighter text-yellow-400 uppercase italic">İKLİM EYLEMİ</h4>
+            <p class="text-emerald-100/70 leading-relaxed text-lg italic max-w-md italic font-light">"Doğa, insanın ihtiyacını karşılayacak kadarını sunar, hırsını değil." — Gandhi</p>
+        </div>
+        <div>
+            <h5 class="font-bold mb-6 uppercase tracking-widest text-sm text-yellow-400 border-l-4 border-yellow-400 pl-3">Navigasyon</h5>
+            <ul class="space-y-4 text-emerald-100/80">
+                <li><a href="hedef.html" class="hover:text-yellow-400 transition flex items-center gap-2"><span>→</span> SKA 13 Nedir?</a></li>
+                <li><a href="uni.html" class="hover:text-yellow-400 transition flex items-center gap-2"><span>→</span> Anket Sonuçları</a></li>
+                <li><a href="cozumler.html" class="hover:text-yellow-400 transition flex items-center gap-2"><span>→</span> Eylem Planı</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-bold mb-6 uppercase tracking-widest text-sm text-yellow-400 border-l-4 border-yellow-400 pl-3">Kampüs Karnesi</h5>
+            <div class="bg-emerald-900/40 p-5 rounded-2xl border border-white/10 shadow-inner">
+                <div class="flex justify-between text-xs mb-2">
+                    <span class="opacity-70 uppercase tracking-tighter">Aktif Katılım</span>
+                    <span class="font-bold text-yellow-400">%75</span>
+                </div>
+                <div class="w-full bg-white/10 h-2.5 rounded-full overflow-hidden">
+                    <div class="bg-gradient-to-r from-yellow-500 to-yellow-300 h-full w-[75%] shadow-[0_0_10px_rgba(253,224,71,0.5)]"></div>
+                </div>
+                <p class="mt-4 text-[10px] opacity-40 leading-tight">Veriler her ay kampüs içi anketlerle güncellenmektedir.</p>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 mt-10 flex flex-col md:row justify-between items-center gap-4">
+        <p class="text-xs opacity-40 italic tracking-widest text-center">© 2025 KAMPÜS İKLİM EYLEMİ İNİSİYATİFİ. DOĞA İÇİN TASARLANDI.</p>
+        <div class="flex gap-6 opacity-40">
+             <span class="text-[10px]">HTML5 / TailwindCSS / JS</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Mobil Menü Toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Slider Kontrolü
+    let currentSlide = 0;
+    const slider = document.getElementById('slider');
+    const slides = document.querySelectorAll('.slider-item');
+
+    function moveSlider(direction) {
+        currentSlide = (currentSlide + direction + slides.length) % slides.length;
+        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    // Otomatik Slider (8 saniyeye çıkarıldı - daha rahat okuma için)
+    let slideInterval = setInterval(() => moveSlider(1), 8000);
+
+    // Kullanıcı tıkladığında otomatiği durdur/sıfırla
+    const resetInterval = () => {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(() => moveSlider(1), 8000);
+    };
+
+    // Kaydırma Animasyonu (Reveal)
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ne Yapabilirim? | Küresel Amaçlar</title>
+    
+    <link rel="icon" type="image/png" href="img/kureselamaclar-yenilogo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        
+        * { box-sizing: border-box; } /*Kutunun boyutu neyse o kalsın  içine padding veya kenarlık ekleyince kutu dışarı doğru şişip tasarımı patlatmasın*/
+        body {
+            margin: 0; padding: 0; font-family: 'Roboto', sans-serif;/* asarımı temizle ve güzelleştir*/
+            background-color: #f0f2f5; color: #333; overflow-x: hidden;/* arka plana resim ekler*/
+        }
+        html { scroll-behavior: smooth; } /*Sitede bir linke tıkladığında sayfayı güzel açsın*/
+        a { text-decoration: none; color: inherit; transition: 0.3s; }/*link çizgi kaldır ve üstüne gelince 0.3 saniye geçiş */
+        ul { list-style: none; padding: 0; margin: 0; } /*liste yani üst menüdeki yazılarda boşluk olmasın*/
+
+        
+        header {
+            background: rgba(255, 255, 255, 0.99); padding: 10px 0;/*arka plan resmi beyaz olsn ve arka plan ile menü arasında boşluk olsun*/
+            position: sticky; top: 0; z-index: 1000;/*kaydırma yapınca yakın satıra yapıştır ve yazılar aşağı kaydırırken kaymasın*/
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); border-bottom: 1px solid #e1e1e1;/* menü altına çubuk çekmek */
+        }
+        .header-container {
+            width: 90%; max-width: 1400px; margin: 0 auto; /*sitede olan şeyler ekrana yapışmasın */
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+        }
+        .header-left-group { display: flex; align-items: center; gap: 15px; } /* Logoları ve Çizgiyi Yan Yana Diz */
+        .project-logo img { height: 50px; display: block; transition: 0.3s; } /*logonun boyutunu 50 yap resim güzel hizalansın*/
+        .project-logo img:hover { transform: scale(1.05); }/* mouse ile logonun üstüne gelince büyüt*/
+        .header-divider { width: 1px; height: 35px; background: #ccc; }/* iki logoyu bşrbrşnden ayırmak için çizgi*/
+        .aku-branding { display: flex; align-items: center; gap: 12px; } /*Üniversite logosu ile yanındaki metni yan yana getir*/
+        .aku-branding img { height: 45px; border-radius: 50%; }/* üniverdite logo 45 boyouta sabitle*/
+        .aku-branding span { font-family: 'Poppins', sans-serif; font-size: 0.75rem; font-weight: 700; color: #444; }/* logonun yanıdanki yazıyı güze yaz */
+        nav ul { display: flex; gap: 30px; }/*menüler ya nyana dizdik*/
+        nav ul li a { font-family: 'Poppins', sans-serif; font-weight: 600; color: #444; font-size: 0.95rem; position: relative; } /*menüde her bir link güzel dursun*/
+        nav ul li a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; background-color: #009EDB; transition: 0.3s; }
+        nav ul li a:hover::after { width: 100%; }
+        nav ul li a:hover { color: #009EDB; }
+
+       
+        .main-container {
+            width: 90%; max-width: 1200px; margin: 60px auto;/* içerik ekrana yapıştırma sayfa dışına taşma*/
+            display: flex; gap: 50px; animation: fadeIn 1s ease-out;
+        }
+        .left-content { flex: 2; }
+        .section-title {
+            font-family: 'Poppins', sans-serif; font-size: 2rem; color: #222; margin-bottom: 20px; position: relative; padding-bottom: 10px;
+        }
+        .section-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 60px; height: 4px; background: #E5243B; border-radius: 2px; }
+        .text-content { font-size: 1.1rem; line-height: 1.8; color: #555; margin-bottom: 30px; }
+        .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1); border: 5px solid white;
+        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+       
+        .right-sidebar { flex: 1; }
+        .download-box {
+            background: white; padding: 40px 30px; border-radius: 20px; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 5px solid #E5243B;
+            position: sticky; top: 100px;
+        }
+        .download-box h3 { font-family: 'Poppins', sans-serif; font-size: 1.5rem; margin-bottom: 20px; color: #333; }
+        .app-icon { font-size: 3rem; color: #E5243B; margin-bottom: 20px; }
+
+        
+        .store-buttons { /*butonlara istenilen kod verme*/
+            display: flex; flex-direction: column; gap: 15px; margin-top: 30px;
+        }
+        .store-btn {
+            display: flex; align-items: center; justify-content: center; gap: 15px;
+            background: #333; color: white; padding: 12px 25px; border-radius: 10px;
+            transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .store-btn:hover {
+            background: #000; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .store-btn i { font-size: 1.8rem; }
+        .btn-text { text-align: left; line-height: 1.2; }
+        .btn-text small { display: block; font-size: 0.75rem; opacity: 0.8; }
+        .btn-text span { font-weight: 700; font-size: 1.1rem; }
+
+        /* Google Play Rengi */
+        .google-play { background: #009EDB; }
+        .google-play:hover { background: #007bbd; }
+
+        /* --- alt çubuuk --- */
+        footer {
+            background: #1a1a2e; color: #fff; padding: 50px 20px; text-align: center; margin-top: 80px;
+        }
+        .social-icons-footer a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
+        .social-icons-footer a:hover { color: #009EDB; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; }
+            .header-left-group { flex-direction: column; text-align: center; gap: 10px; }
+            .header-divider { display: none; }
+            .aku-branding span { font-size: 0.65rem; }
+            nav ul { flex-wrap: wrap; justify-content: center; }
+            .main-container { flex-direction: column; }
+            .download-box { position: static; }
+            .store-buttons { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="header-left-group">
+                <a href="index.html" class="project-logo">
+                    <img src="img/site logo.jpg" alt="Küresel Amaçlar Projesi"><!--sitemizin logosu-->
+                </a>
+                <div class="header-divider"></div>
+                <a href="https://aku.edu.tr" target="_blank" class="aku-branding">
+                     <img src="img/arkaplanlogo.jpg" alt="AKÜ Logosu"><!--üniversite logo-->
+                     <span>Afyon Kocatepe Üniversitesi<br>Sürdürülebilirlik Koordinatörlüğü</span><!-- resmin yanındaki yaı-->
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">ANA SAYFA</a></li><!--ana sayfa yönlendirme kodu-->
+                    <li><a href="harekete-gec.html">HAREKETE GEÇ</a></li><!--harekete geç sayfa yönlendirme kodu-->
+                    <li><a href="neyapabilirim.html" style="color: #009EDB;">NE YAPABİLİRİM?</a></li>
+                    <li><a href="skanedir.html">SKA NEDİR?</a></li>
+                    <li><a href="hakkında.html">HAKKINDA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="main-container">
+        
+        <div class="left-content">
+            <h2 class="section-title">TÜM DÜNYADA PAYLAŞIN</h2>
+            <p class="text-content">
+                Desteklediğiniz amacı ve kendinizi harita üzerinde etiketleme zamanı geldi. <strong>Küresel Amaçlar</strong> uygulaması dünyayı değiştirmek için size yardımcı olacak en güçlü araçlardan biridir.
+            </p>
+            <p class="text-content">
+                Yaratıcı olun – Bir fotoğraf veya video çekerek desteklediğiniz amacı öne çıkarın. Sosyal medyada paylaşın ve seçtiğiniz amacın gerçekleşmesini takip edin. Unutmayın, değişim paylaşarak başlar.
+            </p>
+            <div class="video-wrapper">
+                <iframe 
+                    src="img/video3.mp4"  
+                    title="Küresel Amaçlar" 
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div class="right-sidebar">
+            <div class="download-box">
+                <i class="fa-solid fa-cloud-arrow-down app-icon"></i>
+                <h3>ŞİMDİ İNDİR</h3>
+                <p style="color: #666; font-size: 0.95rem; line-height: 1.6;"><!--paragraf kodu-->
+                    İnanılmaz bir şeye ulaşma yolunda ilk adımı atın. Değişimin parçası olmak için uygulamayı hemen cihazınıza indirin.
+                </p>
+                
+                <div class="store-buttons">
+                    <a href="https://apps.apple.com/tr/app/değişime-açık-küresel-hedefler/id1453854576?l=tr" target="_blank" class="store-btn">
+                        <i class="fa-brands fa-apple"></i>
+                        <div class="btn-text">
+                            <small>Download on the</small>
+                            <span>App Store</span>
+                        </div>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.fngame&hl=tr&pli=1" target="_blank" class="store-btn google-play"> <!-- app store link-->
+                        <i class="fa-brands fa-google-play"></i> <!--- gogole play link-->
+                        <div class="btn-text">
+                            <small>GET IT ON</small>
+                            <span>Google Play</span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="social-icons-footer" style="margin-bottom: 20px;">
+            <a href="https://www.instagram.com/kureselamaclar/#" target="_blank"><i class="fab fa-instagram"></i></a> <!--buton link ve ismi-->
+            <a href="https://x.com/kureselamaclar" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>   <!--buton link ve ismi-->
+            <a href="https://www.facebook.com/kureselamaclar" target="_blank"><i class="fab fa-facebook"></i></a> <!--buton link ve ismi-->
+        </div>
+
+        <p style="opacity: 0.8; font-size: 0.95rem;">
+            © 2025 Küresel Amaçlar Web Tasarım Dersi Final Ödevi | Designed by <!-- alt çubukta yazan metin-->
+            <a href="ekibimiz.html" style="color: #009EDB; font-weight: bold; text-decoration: none;">&lt;Body&gt; Guards</a><!-- en altta çubukta renk ve metin-->
+        </p>
+    </footer>
+
+</body>
+</html>

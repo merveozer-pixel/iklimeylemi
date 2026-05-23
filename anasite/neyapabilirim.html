@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NE YAPABİLİRİM? | Küresel Amaçlar</title>
+    
+    <link rel="icon" type="image/png" href="resimler/kureselamaclar-yenilogo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- GENEL RENK VE DEĞİŞKEN AYARLARI --- */
+        /* Renk paletimizi buraya sabitledik, projenin her sayfasında aynı enerjiyi koruyoruz! */
+        :root {
+            --ska-red: #E5243B;
+            --ska-mustard: #DDA63A;
+            --ska-green: #4C9F38;
+            --ska-blue: #00689D;
+            --ska-orange: #FD6925;
+            --ska-dark-red: #c0392b;
+            
+            --bg-body: #ffffff;
+            --text-main: #333333;
+            --font-main: 'Montserrat', sans-serif;
+        }
+
+        /* Sayfanın patronu biziz, tarayıcının kafasına göre verdiği boşlukları sıfırlıyoruz. */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-main);
+            line-height: 1.7;
+            background-color: var(--bg-body);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Modern bir görünüm için alt çizgileri attık, geçişleri yumuşattık. */
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul, ol { list-style: none; }
+
+        /* ============================================================
+           HEADER (ÜST MENÜ) - GÜNCELLENDİ (DİĞER SAYFALARLA AYNI)
+        ============================================================ */
+        header {
+            background: rgba(255, 255, 255, 0.99);
+            padding: 10px 0;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e1e1e1;
+        }
+        .header-container {
+            width: 90%; max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+        }
+        .header-left-group { display: flex; align-items: center; gap: 15px; }
+        .project-logo img { height: 50px; display: block; transition: 0.3s; }
+        .project-logo img:hover { transform: scale(1.05); }
+        .header-divider { width: 1px; height: 35px; background: #ccc; }
+        .aku-branding { display: flex; align-items: center; gap: 12px; }
+        .aku-branding img { height: 45px; border-radius: 50%; }
+        .aku-branding span { font-family: 'Poppins', sans-serif; font-size: 0.75rem; font-weight: 700; color: #444; }
+        
+        nav ul { display: flex; gap: 30px; }
+        nav ul li a { font-family: 'Poppins', sans-serif; font-weight: 600; color: #444; font-size: 0.95rem; position: relative; }
+        nav ul li a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; background-color: #009EDB; transition: 0.3s; }
+        nav ul li a:hover::after { width: 100%; }
+        nav ul li a:hover { color: #009EDB; }
+
+        /* --- HERO (BAŞLIK) ALANI --- */
+        .hero-section {
+            background-color: #fff;
+            padding: 80px 0 40px 0;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: #000;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .hero-divider {
+            height: 6px;
+            width: 100px;
+            margin: 20px auto;
+            border-radius: 3px;
+            background: linear-gradient(to right, #E5243B, #DDA63A, #4C9F38, #00689D, #FD6925);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- İÇERİK ALANI --- */
+        #Content { padding: 40px 0; flex: 1; }
+        
+        .content-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background-color: #f0f0f0;
+            color: #333 !important; 
+            padding: 10px 25px;
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .social-btn:hover {
+            background: linear-gradient(45deg, #E5243B, #FD6925);
+            color: #fff !important;
+            transform: translateY(-2px);
+        }
+
+        .text-content {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 50px;
+        }
+
+        .text-content p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .text-content strong {
+            font-weight: 800;
+            background-image: linear-gradient(to right, #E5243B, #DDA63A, #4C9F38, #00689D, #FD6925);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* --- LİSTE TASARIMI --- */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #222;
+            margin: 50px 0 40px 0;
+            text-transform: uppercase;
+        }
+
+        .action-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            counter-reset: my-counter;
+        }
+
+        .action-list li {
+            background: #fff;
+            padding: 40px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            border-top: 6px solid #ddd;
+        }
+        
+        .action-list li:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .action-list li::before {
+            counter-increment: my-counter;
+            content: counter(my-counter);
+            color: #fff;
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+
+        .action-list li a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        /* Renkleri madde madde atadık, gökkuşağı gibi dizildiler! */
+        .action-list li:nth-child(1) { border-top-color: var(--ska-red); }
+        .action-list li:nth-child(1)::before { background: var(--ska-red); }
+        .action-list li:nth-child(1) a:hover { background: var(--ska-red); color: #fff; }
+
+        .action-list li:nth-child(2) { border-top-color: var(--ska-mustard); }
+        .action-list li:nth-child(2)::before { background: var(--ska-mustard); }
+        .action-list li:nth-child(2) a:hover { background: var(--ska-mustard); color: #fff; }
+
+        .action-list li:nth-child(3) { border-top-color: var(--ska-green); }
+        .action-list li:nth-child(3)::before { background: var(--ska-green); }
+        .action-list li:nth-child(3) a:hover { background: var(--ska-green); color: #fff; }
+
+        .action-list li:nth-child(4) { border-top-color: var(--ska-blue); }
+        .action-list li:nth-child(4)::before { background: var(--ska-blue); }
+        .action-list li:nth-child(4) a:hover { background: var(--ska-blue); color: #fff; }
+
+        .action-list li:nth-child(5) { border-top-color: var(--ska-orange); }
+        .action-list li:nth-child(5)::before { background: var(--ska-orange); }
+        .action-list li:nth-child(5) a:hover { background: var(--ska-orange); color: #fff; }
+
+        .action-list li:nth-child(6) { border-top-color: var(--ska-dark-red); }
+        .action-list li:nth-child(6)::before { background: var(--ska-dark-red); }
+        .action-list li:nth-child(6) a:hover { background: var(--ska-dark-red); color: #fff; }
+
+        /* --- ALT BÖLÜM --- */
+        .section-dark-bg {
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f7f1 100%);
+            padding: 80px 0;
+            margin-top: 50px;
+        }
+
+        .bottom-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .image-card { text-align: center; max-width: 450px; flex: 1; }
+        .image-card img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+        .image-card:hover img { transform: scale(1.03); }
+
+        .image-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-bottom: 3px solid #ddd;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        /* ============================================================
+           FOOTER (ALT KISIM) - GÜNCELLENDİ (DİĞER SAYFALARLA AYNI)
+        ============================================================ */
+        footer {
+            background: #1a1a2e; color: #fff; padding: 50px 20px; text-align: center; margin-top: auto;
+        }
+        .social-icons-footer a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
+        .social-icons-footer a:hover { color: #009EDB; }
+
+        /* Mobil Uyumluluk */
+        @media (max-width: 992px) {
+            .header-container { flex-direction: column; gap: 15px; }
+            .header-left-group { flex-direction: column; text-align: center; gap: 10px; }
+            .header-divider { display: none; }
+            .aku-branding span { font-size: 0.65rem; }
+            nav ul { flex-wrap: wrap; justify-content: center; }
+            .social-buttons { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="header-left-group">
+                <a href="index.html" class="project-logo">
+                    <img src="resimler/logoo.jpeg" alt="Küresel Amaçlar Projesi">
+                </a>
+                <div class="header-divider"></div>
+                <a href="https://aku.edu.tr" target="_blank" class="aku-branding">
+                     <img src="resimler/logo.jpg" alt="AKÜ Logosu">
+                     <span>Afyon Kocatepe Üniversitesi<br>Sürdürülebilirlik Koordinatörlüğü</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">ANA SAYFA</a></li>
+                    <li><a href="harekete-gec.html">HAREKETE GEÇ</a></li>
+                    <li><a href="neyapabilirim.html" style="color: #009EDB;">NE YAPABİLİRİM?</a></li>
+                    <li><a href="skanedir.html">SKA NEDİR?</a></li>
+                    <li><a href="hakkında.html">HAKKINDA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <div class="content-wrapper">
+            <h1 class="hero-title">NE YAPABİLİRİM?</h1>
+            <div class="hero-divider"></div>
+            <p class="hero-subtitle">Dünyayı değiştirmek için devasa adımlar atmana gerek yok. Küçük başlangıçlar, büyük değişimler yaratır.</p>
+        </div>
+    </div>
+
+    <div id="Content">
+        <div class="content-wrapper"> 
+            
+            <div class="text-content">
+                <div class="social-buttons">
+                    <a href="https://www.facebook.com/kureselamaclar/" target="_blank" class="social-btn">FACEBOOK</a>
+                    <a href="https://x.com/kureselamaclar" target="_blank" class="social-btn">X (Twitter)</a>
+                    <a href="https://www.instagram.com/kureselamaclar" target="_blank" class="social-btn">INSTAGRAM</a>
+                </div> 
+
+                <p>
+                    Küresel Amaçlar'ın başarıya ulaşmasının aslında tek bir sırrı var: <strong>Hepimiz tarafından bilinmesi.</strong> 
+                </p>
+                <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px;">
+                <p>
+                    Bir e-postanın sonunda, bir kahve molasında ya da derste... Fırsatını bulduğun her an nerede olursan ol <strong>#HERKESEANLAT.</strong>
+                </p>
+            </div>
+
+            <h2 class="section-title">KÜRESEL AMAÇLAR İÇİN ADIM AT</h2>
+            <ol class="action-list">
+                <li>Uygulamayı indir <br> <strong><a href="paylas.html" target="_blank">herkese anlat</a></strong></li>
+                <li>Küresel amaçların afişini <br> <strong><a href="resimler/afiş.png" target="_blank">duvarına as</a></strong></li>
+                <li>Dizzy Goal oyununu oyna ve <br> <strong><a href="dizzygoals.html" target="_blank" >skorunu paylaş</a></strong></li>
+                <li>Bir video çek, paylaş ve <br> <strong><a href="paylas.html" target="_blank">sesini duyur</a></strong></li>
+                <li>Bizi sosyal medyada takip et ve <br> <strong><a href="sosyal-medya.html" target="_blank" >gönderileri paylaş</a></strong></li>
+                <li>Yaratıcı ol, kendi yöntemini bul ve <br> <strong><a href="sosyal-medya.html" target="_blank" >ilham ol</a></strong></li>
+            </ol> 
+        </div> 
+        
+        <div class="section-dark-bg">
+            <div class="content-wrapper"> 
+                <div class="bottom-cards">
+                    <div class="image-card">
+                        <img src="resimler/yeni-selfie.png" alt="Selfie Çekin" />
+                        <h4>SELFIE ÇEKİN</h4>
+                    </div>
+                    <div class="image-card">
+                        <img src="resimler/resim-2.png" alt="Dizzy Goals" />
+                        <h4>#DIZZYGOALS MEYDAN OKUMASI</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-icons-footer" style="margin-bottom: 20px;">
+            <a href="https://www.instagram.com/kureselamaclar/#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/kureselamaclar" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/kureselamaclar" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+
+        <p style="opacity: 0.8; font-size: 0.95rem;">
+            © 2025 Küresel Amaçlar Web Tasarım Dersi Final Ödevi | Designed by 
+            <a href="ekibimiz.html" style="color: #009EDB; font-weight: bold; text-decoration: none;">&lt;Body&gt; Guards</a>
+        </p>
+    </footer>
+
+</body>
+</html>

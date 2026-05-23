@@ -1,0 +1,186 @@
+/* SKA 3 Teması: Mavi/Yeşil Tonlar */
+:root {
+    --ska-main-color: #4CAF50; /* Canlı Yeşil/Mavi Karışımı (SKA 3) */
+    --ska-light-color: #81C784; /* Açık Yeşil */
+    --text-color: #333;
+    --background-color: #f4f4f9;
+    --banner-color: #2E7D32; /* Daha koyu ton */
+}
+
+/* Genel Stil ve Fontlar */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* --- Navigasyon Çubuğu (Header) --- */
+header {
+    background-color: var(--ska-main-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+}
+
+.logo {
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+}
+
+.nav-links li a:hover {
+    background-color: var(--banner-color);
+}
+
+.nav-links li a.active {
+    background-color: var(--banner-color);
+    font-weight: bold;
+}
+
+/* --- SKA Banner --- */
+.ska-banner {
+    background-color: var(--ska-main-color);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+
+.ska-banner h1 {
+    font-size: 1.4em;
+    margin: 0;
+}
+
+/* --- İçerik Bölümleri --- */
+.hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.hero h2 {
+    color: var(--banner-color);
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    text-align: left;
+}
+
+.hero-content p {
+    flex: 1;
+}
+
+.page-image {
+    width: 40%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content-section {
+    padding: 20px 0;
+}
+
+.content-section h3 {
+    color: var(--ska-main-color);
+    border-bottom: 2px solid var(--ska-light-color);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.content-section ul, .content-section ol {
+    padding-left: 25px;
+}
+
+/* Görsel ve Grafik Stilleri */
+.image-center {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.chart-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Dipnot (Footer) --- */
+footer {
+    background-color: var(--banner-color);
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 50px;
+}
+
+/* --- Mobil Uyumlu Yapı (Responsive Design) --- */
+@media (max-width: 768px) {
+    
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .nav-links li a {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .page-image {
+        width: 100%; /* Mobil cihazlarda görsel tam genişlikte */
+    }
+
+    .ska-banner h1 {
+        font-size: 1.1em;
+    }
+}

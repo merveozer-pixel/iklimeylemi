@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizi Paylaş | Küresel Amaçlar</title>
+    
+    <link rel="icon" type="image/png" href="img/kureselamaclar-yenilogo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* 1. GENEL SAYFA AYARLARI */
+        /* Tüm elementlerin kutu modelini sıfırlar, taşmaları önler */
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Roboto', sans-serif; /* Ana metin fontu roboto seçiyoruz */
+            background-color: #f8f9fa; /* Göz yormayan açık gri arka plan */
+            color: #333; /* Metin rengi koyu gri */
+            overflow-x: hidden; /* Yatay kaydırma çubuğunu gizle */
+        }
+
+        /* Linklerin alt çizgisini kaldır ve renk geçişlerini yumuşat */
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; padding: 0; margin: 0; }
+
+        /* 2. HEADER (ÜST MENÜ) */
+        header {
+            background: rgba(255, 255, 255, 0.99); /* Hafif şeffaf beyaz */
+            padding: 10px 0;
+            position: sticky; /* Menüyü sayfa tepesine yapıştırırıypruz */
+            top: 0; /* Yukarıdan aşağıya hiç mesafe bırakma (0 piksel) */
+            z-index: 1000; /* Her şeyin üstünde dursun */
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); /* Altına hafif gölge */
+            border-bottom: 1px solid #e1e1e1; /* Altına ince gri çizgi çeker */ 
+        }
+
+        /* Menüyü ortalayan ve sınırlayan kısım */
+        .header-container {
+            width: 90%; max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+        }
+
+        /* Sol taraftaki Logo ve AKÜ yazısı grubu */
+        .header-left-group { display: flex; align-items: center; gap: 15px; }
+        
+        .project-logo img { height: 50px; display: block; transition: 0.3s; }
+        .project-logo img:hover { transform: scale(1.05); /* Logoya gelince hafif büyüsün */ }
+        
+        /* Logo aradaki ince dikey çizgi */
+        .header-divider { width: 1px; height: 35px; background: #ccc; }
+        
+        .aku-branding { display: flex; align-items: center; gap: 12px; }
+        .aku-branding img { height: 45px; border-radius: 50%; }
+        .aku-branding span { font-family: 'Poppins', sans-serif; font-size: 0.75rem; font-weight: 700; color: #444; }
+
+        /* Sağ taraftaki navigasyon linkleri */
+        nav ul { display: flex; gap: 30px; }
+        nav ul li a { 
+            font-family: 'Poppins', sans-serif; font-weight: 600; color: #444; font-size: 0.95rem; position: relative; 
+        }
+        
+        /* Menü altındaki mavi çizgi animasyonu */
+        nav ul li a::after { 
+            content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; 
+            background-color: #009EDB; transition: 0.3s; 
+        }
+        nav ul li a:hover::after { width: 100%; }
+        nav ul li a:hover { color: #009EDB; }
+
+        /* 3. SAYFA BAŞLIĞI */
+        .page-header {
+            text-align: center; margin-top: 60px; margin-bottom: 50px;
+        }
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 800; color: #222; margin-bottom: 10px;
+        }
+        .page-header p { 
+            font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto; 
+        }
+
+        /* 4. PAYLAŞIM KARTLARI ALANI */
+        .share-container {
+            max-width: 1000px; margin: 0 auto 80px auto; padding: 0 20px;
+        }
+
+        /* Metin Kopyalama Kutusu */
+        .copy-section {
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 40px;
+            border-left: 5px solid #E5243B; /* Sol tarafa dikkat çekici kırmızı çizgi */
+        }
+        .copy-section h3 { font-family: 'Poppins', sans-serif; margin-bottom: 20px; }
+        
+        .copy-box {
+            background: #f4f4f4; padding: 20px; border-radius: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            border: 1px solid #ddd;
+        }
+        
+        /* Kopyalanacak metnin stili (Monospace fontu kod gibi durmasını sağlar) */
+        .copy-text { font-family: monospace; color: #555; font-size: 1rem; flex: 1; }
+        
+        .copy-btn {
+            background: #333; color: white; border: none;
+            padding: 10px 20px; border-radius: 5px; cursor: pointer;
+            font-weight: bold; transition: 0.3s; margin-left: 15px;
+        }
+        .copy-btn:hover { background: #E5243B; /* Üstüne gelince kırmızı olsun */ }
+        
+        /* "Kopyalandı" uyarısı (Başlangıçta görünmez) */
+        .copy-alert {
+            font-size: 0.8rem; color: #4C9F38; margin-top: 10px; opacity: 0; transition: 0.3s; font-weight: bold;
+        }
+
+        /* Görsel ve QR İndirme kısmı */
+        .download-grid {
+            display: grid; /* Sayfayı kare kare bölüp yönetmek için kullanılan, en gelişmiş hizalama sistemidir. */
+            /* Grid yapısı: Kartlar ekrana sığdığı kadar yan yana dizilsin */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; /* Çoklu kutu dizilimlerinde "araları açmak" için kullanılan en modern ve en temiz kod */
+        }
+        
+        .download-card {
+            background: white; padding: 20px; border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;
+            transition: 0.3s;
+        }
+        .download-card:hover { 
+            transform: translateY(-5px); /* Kart yukarı kalksın */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
+        }
+        
+        .download-card img {
+            width: 100%; border-radius: 10px; margin-bottom: 20px;
+            object-fit: contain; height: 200px; /* Görseller eşit boyda dursun */
+        }
+        
+        /* İndirme Butonu */
+        .dl-btn {
+            display: inline-block; padding: 10px 25px;
+            background: #009EDB; color: white; border-radius: 50px;
+            font-weight: bold; font-size: 0.9rem;
+        }
+        .dl-btn:hover { background: #007bbd; }
+
+        /* 5. FOOTER (ALT BİLGİ) */
+        footer {
+            background: #1a1a2e; color: #fff; padding: 50px 20px; text-align: center; margin-top: auto;
+        }
+        .social-icons-footer a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
+        .social-icons-footer a:hover { color: #009EDB; }
+
+        /* MOBİL UYUMLULUK (yine yapay zeka destekli) */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; }
+            .header-left-group { flex-direction: column; text-align: center; gap: 10px; }
+            .header-divider { display: none; }
+            nav ul { flex-wrap: wrap; justify-content: center; }
+            .copy-box { flex-direction: column; gap: 15px; text-align: center; }
+            .copy-btn { margin-left: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="header-left-group">
+                <a href="index.html" class="project-logo">
+                    <img src="img/kureselamaclar-yenilogo.png" alt="Küresel Amaçlar Projesi">
+                </a>
+                <div class="header-divider"></div>
+                <a href="https://aku.edu.tr" target="_blank" class="aku-branding">
+                     <img src="img/afyonkocatepelogo.jpg" alt="AKÜ Logosu">
+                     <span>Afyon Kocatepe Üniversitesi<br>Sürdürülebilirlik Koordinatörlüğü</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">ANA SAYFA</a></li>
+                    <li><a href="harekete-gec.html">HAREKETE GEÇ</a></li>
+                    <li><a href="neyapabilirim.html">NE YAPABİLİRİM?</a></li>
+                    <li><a href="skanedir.html">SKA NEDİR?</a></li>
+                    <li><a href="hakkında.html">HAKKINDA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>SOSYAL MEDYA KİTİ</h1>
+        <p>Sesimizi duyurmak için ihtiyacın olan her şey burada. Hazır metinleri kopyala, görselleri indir ve paylaş!</p>
+    </div>
+
+    <div class="share-container">
+        
+        <div class="copy-section">
+            <h3>📢 Hazır Paylaşım Metni</h3>
+            <p style="margin-bottom: 15px; color: #666; font-size: 0.9rem;">Bu metni kopyalayarak Instagram, X (Twitter) veya Facebook'ta paylaşabilirsin.</p>
+            
+            <div class="copy-box">
+                <div class="copy-text" id="shareText">Daha iyi bir gelecek için ben de varım! 🌍 Küresel Amaçlar için harekete geçiyorum. Sen de bize katıl, değişimin parçası ol. #KüreselAmaçlar #Sürdürülebilirlik #BodyGuards</div>
+                
+                <button class="copy-btn" onclick="copyText()">KOPYALA</button>
+            </div>
+            <div id="alertBox" class="copy-alert">Metin başarıyla kopyalandı! ✅</div>
+        </div>
+
+        <div class="download-grid">
+            
+            <div class="download-card">
+                <img src="img/kureselamaclar-yenilogo.png" alt="Logo Paylaşım">
+                <h4>Proje Logosu</h4>
+                <p style="font-size: 0.9rem; color: #777; margin: 10px 0 20px;">PNG Formatında şeffaf logo.</p>
+                <a href="img/kureselamaclar-yenilogo.png" download class="dl-btn">İNDİR <i class="fa-solid fa-download"></i></a>
+            </div>
+
+            <div class="download-card">
+                <img src="resimler/afiş.png" alt="Afiş Paylaşım">
+                <h4>Kampanya Afişi</h4>
+                <p style="font-size: 0.9rem; color: #777; margin: 10px 0 20px;">Hikaye ve gönderi boyutu.</p>
+                <a href="resimler/afiş.png" download class="dl-btn">İNDİR <i class="fa-solid fa-download"></i></a>
+            </div>
+
+            <div class="download-card">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aku.edu.tr" alt="Site QR Kodu">
+                <h4>AKÜ QR Kodu</h4>
+                <p style="font-size: 0.9rem; color: #777; margin: 10px 0 20px;">Okutunca Afyon Kocatepe Üniversitesine yönlendirir.</p>
+                <a href="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://aku.edu.tr" download="site-qr.png" class="dl-btn">İNDİR <i class="fa-solid fa-download"></i></a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="social-icons-footer" style="margin-bottom: 20px;">
+            <a href="https://www.instagram.com/kureselamaclar/#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/kureselamaclar" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/kureselamaclar" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+
+        <p style="opacity: 0.8; font-size: 0.95rem;">
+            © 2025 Küresel Amaçlar Web Tasarım Dersi Final Ödevi | Designed by 
+            <a href="ekibimiz.html" style="color: #009EDB; font-weight: bold; text-decoration: none;">&lt;Body&gt; Guards</a>
+        </p>
+    </footer>
+
+    <script>
+        function copyText() {
+            // 1. Kopyalanacak metni HTML elementinden almasını sağlıyoruz
+            var textToCopy = document.getElementById("shareText").innerText;
+            
+            // 2. Tarayıcının panosuna (Clipboard) yaz
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                
+                // 3. Başarılı olursa 'Kopyalandı' mesajını görünür yap
+                var alertBox = document.getElementById("alertBox");
+                alertBox.style.opacity = "1";
+                
+                // 4. 3 saniye sonra mesajı tekrar gizle
+                setTimeout(function(){
+                    alertBox.style.opacity = "0";
+                }, 3000);
+            }, function(err) {
+                // Hata olursa konsola yaz
+                console.error('Kopyalama hatası: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>

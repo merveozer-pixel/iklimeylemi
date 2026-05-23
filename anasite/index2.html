@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ana Sayfa | Küresel Amaçlar</title>
+    
+    <link rel="icon" type="image/png" href="img/kureselamaclar-yenilogo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* CSS TASARIM KODLARIMIZ */
+
+        /* Tüm elementlerin genişlik ve yükseklik hesaplamasını standartlaştırdık, kutuların taşmasını engelledik */
+        * { box-sizing: border-box; } 
+        
+        body {
+            margin: 0; padding: 0;  /* Tarayıcının varsayılan kenar boşluklarını sıfırladık */
+            font-family: 'Roboto', sans-serif;  /* Sayfanın genel yazı tipini belirledik */
+            background-color: #f4f7f6; /* Gözü yormayan açık renk bir arka plan tercih ettik */
+            color: #333; /* Okunabilirliği artırmak için yazı rengini koyu gri yaptık */
+            overflow-x: hidden; /* Mobil görünümde sayfanın sağa sola kaymasını engelledik */
+        }
+        
+        html { scroll-behavior: smooth; } /* Menü linklerine tıklandığında sayfanın yumuşak bir şekilde kaymasını sağladık */
+        a { text-decoration: none; color: inherit; transition: 0.3s; } /* Linklerin altındaki varsayılan çizgiyi kaldırdık ve geçiş efekti verdik */
+        ul { list-style: none; padding: 0; margin: 0; } /* Listelerin başındaki varsayılan işaretleri kaldırdık */
+
+        /* --- ÜST MENÜ (HEADER) ALANI --- */
+        header {
+            background: rgba(255, 255, 255, 0.99); /* Menü arka planını hafif şeffaf beyaz yaptık */
+            padding: 10px 0; /* İçerik kenarlara yapışmasın diye boşluk verdik */
+            position: sticky; top: 0; z-index: 1000; /* Menünün sayfa kaydırıldığında üstte sabit kalmasını sağladık */
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); /* Menüye derinlik katmak için alt tarafına gölge ekledik */
+            border-bottom: 1px solid #e1e1e1; /* Menünün bittiği yeri belli etmek için ince bir çizgi çektik */
+        }
+        .header-container {
+            width: 90%; max-width: 1400px; margin: 0 auto; /* Menü içeriğini ortaladık ve genişliğini sınırladık */
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px; /* Logoları sola, linkleri sağa hizalamak için Flexbox kullandık */
+        }
+        .header-left-group { display: flex; align-items: center; gap: 15px; } /* Sol taraftaki logoları yan yana dizdik */
+        
+        /* Proje logosunun ayarları */
+        .project-logo img { height: 50px; display: block; transition: 0.3s; } 
+        .project-logo img:hover { transform: scale(1.05); } /* Mouse ile üzerine gelince logonun hafifçe büyümesini sağladık */
+        
+        .header-divider { width: 1px; height: 35px; background: #ccc; } /* İki logo arasına ayırıcı dikey çizgi ekledik */
+        
+        /* Üniversite logosu ve yazı grubu */
+        .aku-branding { display: flex; align-items: center; gap: 12px; } 
+        .aku-branding img { height: 45px; border-radius: 50%; } /* Üniversite logosunu yuvarlak hale getirdik */
+        .aku-branding span { font-family: 'Poppins', sans-serif; font-size: 0.75rem; font-weight: 700; color: #444; }
+        
+        /* Menü linklerinin düzeni */
+        nav ul { display: flex; gap: 30px; } /* Linkleri yan yana dizdik ve aralarına boşluk bıraktık */
+        nav ul li a { font-family: 'Poppins', sans-serif; font-weight: 600; color: #444; font-size: 0.95rem; position: relative; }
+        
+        /* Linklerin üzerine gelince çıkan mavi çizgi animasyonu */
+        nav ul li a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; background-color: #009EDB; transition: 0.3s; }
+        nav ul li a:hover::after { width: 100%; } /* Mouse ile gelince çizgi genişliyor */
+        nav ul li a:hover { color: #009EDB; } /* Mouse ile gelince yazı rengi mavi oluyor */
+
+        
+        /* --- GİRİŞ (HERO) BÖLÜMÜ --- */
+        .hero-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Arka plana modern bir renk geçişi (gradient) uyguladık */
+            padding: 100px 20px;
+            text-align: center; /* Yazıları ortaladık */
+            border-bottom: 1px solid #ddd;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Arka plana şeffaf dünya deseni ekleyerek tasarım zenginliği sağladık */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/earth.png');
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative; z-index: 2; /* İçeriğin arka plan deseninin üstünde durmasını sağladık */
+            max-width: 900px; margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem; /* Ana başlığı büyük ve dikkat çekici yaptık */
+            color: #222;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .hero-slogan {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            color: #009EDB; /* Sloganı proje rengimiz olan mavi ile vurguladık */
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(255,255,255,0.8);
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6; /* Satır aralarını açarak okunabilirliği artırdık */
+        }
+
+        /* --- BİLGİ VE VİDEO ALANI --- */
+        .content-container { width: 90%; max-width: 1200px; margin: 50px auto; }
+        .info-panel {
+            background: white; padding: 50px; border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08); /* Panele gölge vererek sayfadan ayrılmasını sağladık */
+            display: flex; align-items: center; gap: 50px; /* Yazı ve video alanını yan yana hizaladık */
+        }
+        .text-side { flex: 1; } /* Alanı eşit bölmek için flex değeri verdik */
+        .text-side h2 {
+            font-family: 'Poppins', sans-serif; font-size: 2.2rem; color: #333; margin-bottom: 25px;
+        }
+        /* Başlığın altına dekoratif mavi çizgi ekledik */
+        .text-side h2::after {
+            content: ''; display: block; width: 80px; height: 4px; background: #009EDB; margin-top: 10px; border-radius: 2px;
+        }
+        .text-side p { line-height: 1.8; color: #555; margin-bottom: 20px; font-size: 1.05rem; }
+        
+        .video-side { flex: 1; }
+        .video-side video { width: 100%; height: 350px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); object-fit: cover; background: #000; }
+
+        /* --- 17 HEDEF KUTULARI (GRID SİSTEMİ) --- */
+        .goals-section { width: 90%; max-width: 1200px; margin: 80px auto; text-align: center; }
+        .goals-title { font-family: 'Poppins', sans-serif; font-size: 2.5rem; margin-bottom: 15px; color: #222; }
+        .goals-desc { color: #666; margin-bottom: 50px; }
+        
+        /* Hedef kutularını düzenli bir ızgara (grid) yapısında göstermek için bu kodları kullandık */
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ekran boyutuna göre kutu sayısını otomatik ayarlar */
+            gap: 20px; /* Kutular arası boşluk */
+        }
+
+        /* Hedef kutularının genel tasarımı */
+        .goal-box {
+            position: relative;
+            display: block; /* Link olduğu için blok element gibi davranmasını sağladık */
+            /* height: 200px;  <-- BUNU SİLDİM, yerine aspect-ratio koydum */
+            aspect-ratio: 1 / 1; /* Kare şeklinde kalmaya zorlar, dağınıklığı önler */
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+            will-change: transform;
+            background-color: #fff; /* Resim tam kaplamazsa arkası beyaz olsun */
+        }
+
+        /* Kutu üzerine gelince yukarı doğru hareket efekti */
+        .goal-box:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .goal-img {
+            width: 100%; height: 100%; 
+            object-fit: contain; /* cover yerine contain yaptık: Resmi kesmeden TAMAMINI gösterir */
+            padding: 0; /* Gerekirse burayı artırarak resme çerçeve boşluğu verebilirsin */
+            transition: transform 0.2s ease-out;
+        }
+        .goal-box:hover .goal-img { transform: scale(1.05); } /* Hover zoom'unu azalttım (1.1 -> 1.05) ki taşma yapmasın */
+
+        .goal-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); /* Yazının daha iyi okunması için resim üzerine koyu filtre attık */
+            transition: 0.15s;
+        }
+        .goal-box:hover .goal-overlay { background: rgba(0,0,0,0.2); }
+
+        .goal-info {
+            position: absolute; bottom: 20px; left: 20px; text-align: left; z-index: 2;
+            width: 90%; /* Yazının kutudan taşmasını önler */
+        }
+        .goal-number { color: white; font-size: 1.5rem; font-weight: 800; display: block; margin-bottom: 5px; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
+        .goal-text {
+            color: white; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1rem;
+            text-transform: uppercase; text-shadow: 0 2px 5px rgba(0,0,0,0.8); /* Yazı okunsun diye gölgeyi artırdık */
+        }
+
+        /* Her bir hedef için  renk kodlarını alt çizgi  olarak ekledik */
+        .goal-box { border-bottom: 5px solid transparent; }
+        .c-1 { border-color: #E5243B; } .c-2 { border-color: #DDA63A; } .c-3 { border-color: #4C9F38; }
+        .c-4 { border-color: #C5192D; } .c-5 { border-color: #FF3A21; } .c-6 { border-color: #26BDE2; }
+        .c-7 { border-color: #FCC30B; } .c-8 { border-color: #A21942; } .c-9 { border-color: #FD6925; }
+        .c-10 { border-color: #DD1367; } .c-11 { border-color: #FD9D24; } .c-12 { border-color: #BF8B2E; }
+        .c-13 { border-color: #3F7E44; } .c-14 { border-color: #0A97D9; } .c-15 { border-color: #56C02B; }
+        .c-16 { border-color: #00689D; } .c-17 { border-color: #19486A; }
+        
+        /* Proje logosunun olduğu son kutu */
+        .c-logo { background: white; display: flex; align-items: center; justify-content: center; border: 2px solid #eee; }
+        .c-logo img { width: 70%; height: auto; object-fit: contain; }
+
+        /* --- FARKINDALIK KÖŞESİ İÇİN STİLLER (YENİ EKLENDİ) --- */
+        .extra-card {
+            display: block; width: 300px; 
+            text-decoration: none; color: inherit; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
+            border-radius: 15px; overflow: hidden; 
+            transition: 0.3s; background: #fff; border: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+        .extra-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .extra-card img { width: 100%; height: 180px; object-fit: cover; }
+        .extra-content { padding: 20px; text-align: left; }
+        .extra-title { font-size: 1.1rem; margin-bottom: 8px; color: #E5243B; font-weight: 700; font-family: 'Poppins', sans-serif; }
+        .extra-desc { font-size: 0.85rem; color: #555; line-height: 1.4; }
+        .extra-btn { display: inline-block; margin-top: 15px; font-weight: bold; font-size: 0.85rem; color: #009EDB; }
+
+        /* --- ALT BİLGİ (FOOTER) ALANI --- */
+        footer {
+            background: #1a1a2e; color: #fff; padding: 50px 20px; text-align: center; margin-top: 100px;
+        }
+        .social-icons-footer a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
+        .social-icons-footer a:hover { color: #009EDB; }
+
+        /* --- MOBİL UYUMLULUK (RESPONSIVE) --- */
+        /* Ekran genişliği 768px'den küçükse (tablet ve telefon) tasarımın nasıl görüneceğini burada ayarladık */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; } 
+            .header-left-group { flex-direction: column; text-align: center; gap: 10px; }
+            .header-divider { display: none; } /* Mobilde ayırıcı çizgiyi gizledik */
+            .aku-branding span { font-size: 0.65rem; }
+            nav ul { flex-wrap: wrap; justify-content: center; } /* Menü linklerini alt alta/yan yana sığdırdık */
+            .info-panel { flex-direction: column; text-align: center; padding: 30px; } /* Bilgi panelini dikey hizaya çevirdik */
+            .text-side h2::after { margin: 15px auto; }
+            .hero-content h1 { font-size: 2.2rem; } /* Başlık boyutunu küçülttük */
+            .hero-slogan { font-size: 1rem; }
+            .video-side video { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="header-left-group">
+                <a href="index.html" class="project-logo">
+                    <img src="img/site logo.jpg" alt="Küresel Amaçlar Projesi"> </a>
+                <div class="header-divider"></div>
+                <a href="https://aku.edu.tr" target="_blank" class="aku-branding"><img src="img/arkaplanlogo.jpg" alt="AKÜ Logosu">
+                      <span>Afyon Kocatepe Üniversitesi<br>Sürdürülebilirlik Koordinatörlüğü</span>
+                </a>
+            </div>
+            <nav>
+                <ul><li><a href="index.html" style="color: #009EDB;">ANA SAYFA</a></li>
+                    <li><a href="harekete-gec.html">HAREKETE GEÇ</a></li> 
+                    <li><a href="neyapabilirim.html">NE YAPABİLİRİM?</a></li>
+                    <li><a href="skanedir.html">SKA NEDİR?</a></li>
+                    <li><a href="hakkında.html">HAKKINDA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>GEZEGENİN SANA İHTİYACI VAR</h1><div class="hero-slogan">17 AMAÇ • TEK GEZEGEN • ORTAK GELECEK</div>
+            <p>Değişimin bir parçası olmak için şimdi harekete geçme zamanı.</p></div>
+    </section>
+
+    <div class="content-container">
+        <div class="info-panel">
+            <div class="text-side">
+                <h2>Dünyayı Değiştirmek İçin Bir Planımız Var</h2>
+                <p>
+                    Dünya Liderleri, 2030 yılına kadar dünyayı daha yaşanabilir bir yer haline getirmek için <strong>17 Küresel Amaç</strong> üzerinde anlaştı.
+                    Bu amaçlar; yoksulluğu sona erdirmek, eşitsizliklerle mücadele etmek ve iklim değişikliğini durdurmak için oluşturuldu.
+                </p>
+                <p>
+                    Bu sadece liderlerin değil, hepimizin sorumluluğu. Gelecek nesillere daha iyi bir dünya bırakmak için şimdi harekete geçme zamanı.
+                </p>
+            </div>
+            <div class="video-side"><video controls>
+                    <source src="img/video.mp4" type="video/mp4">
+                    Tarayıcınız bu videoyu desteklemiyor.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <section class="goals-section">
+        <h2 class="goals-title">17 Küresel Amaç</h2>
+        <p class="goals-desc">Detaylı bilgi almak için hedeflerin üzerine tıklayabilirsiniz.</p>
+        
+        <div class="goals-grid">
+            <a href="hedef1.html" target="_blank" class="goal-box c-1"><img src="img/yoksulluga-son.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">1</span>
+                    <span class="goal-text">Yoksulluğa Son</span></div>
+            </a>
+            
+            <a href="https://idilcevik00-oss.github.io/web-sitem/" target="_blank" class="goal-box c-2"><img src="img/aclıga-son.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">2</span>
+                    <span class="goal-text">Açlığa Son</span></div>
+            </a>
+            
+            <a href="hedef3.html" target="_blank" class="goal-box c-3">
+                <img src="img/saglıkveyasam.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">3</span>
+                    <span class="goal-text">Sağlık Ve Kaliteli Yaşam </span>
+                </div>
+            </a>
+            
+            <a href="hedef4.html" target="_blank" class="goal-box c-4">
+                <img src="img/nitelikli-egitim.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">4</span>
+                    <span class="goal-text">Nitelikli Eğitim</span>
+                </div>
+            </a>
+            
+            <a href="hedef5.html" target="_blank" class="goal-box c-5">
+                <img src="img/toplumsal-esitlik.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">5</span>
+                    <span class="goal-text">Toplumsal Cinsiyet Eşitliği</span>
+                </div>
+            </a>
+            
+            <a href="hedef6.html" target="_blank" class="goal-box c-6">
+                <img src="img/temiz-su.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">6</span>
+                    <span class="goal-text">Temiz Su Ve Sanitasyon</span>
+                </div>
+            </a>
+            
+            <a href="hedef7.html" target="_blank" class="goal-box c-7">
+                <img src="img/erişilebilir-enerji.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">7</span>
+                    <span class="goal-text">Erişilebilir Ve Temiz Enerji</span>
+                </div>
+            </a>
+            
+            <a href="hedef8.html" target="_blank" class="goal-box c-8">
+                <img src="img/insana-yakısır-is.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">8</span>
+                    <span class="goal-text">İnsana Yakışır İş ve ekonomik büyüme </span>
+                </div>
+            </a>
+            
+            <a href="hedef9.html" target="_blank" class="goal-box c-9">
+                <img src="img/sanayi-yenilikci-altyapi.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">9</span>
+                    <span class="goal-text">Sanayi, Yenilikçilik ve altyapı</span>
+                </div>
+            </a>
+            
+            <a href="hedef10.html" target="_blank" class="goal-box c-10">
+                <img src="img/esitsizliklerin-azaltılması.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">10</span>
+                    <span class="goal-text">Eşitsizliklerin azaltılması</span>
+                </div>
+            </a>
+            
+            <a href="hedef11.html" target="_blank" class="goal-box c-11">
+                <img src="img/surdurulebilir-sehirler.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">11</span>
+                    <span class="goal-text"> sürdürülebilir Şehirler ve topluluklar </span>
+                </div>
+            </a>
+            
+            <a href="hedef12.html" target="_blank" class="goal-box c-12">
+                <img src="img/sorumlu-uretım-tuketım.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">12</span>
+                    <span class="goal-text">Sorumlu üretim ve tüketim</span>
+                </div>
+            </a>
+            
+            <a href="ıklım-eylemi/index.html" target="_blank" class="goal-box c-13">
+                <img src="img/iklim-eylemi.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">13</span>
+                    <span class="goal-text">İklim Eylemi</span>
+                </div>
+            </a>
+            
+            <a href="hedef14.html" target="_blank" class="goal-box c-14">
+                <img src="img/sudaki-yasam.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">14</span>
+                    <span class="goal-text">Sudaki Yaşam</span>
+                </div>
+            </a>
+            
+            <a href="hedef15.html" target="_blank" class="goal-box c-15">
+                <img src="img/karasal-yasam.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">15</span>
+                    <span class="goal-text">Karasal Yaşam</span>
+                </div>
+            </a>
+            
+            <a href="hedef16.html" target="_blank" class="goal-box c-16">
+                <img src="img/barıs-adalet.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">16</span>
+                    <span class="goal-text">Barış Adalet ve güçlü kurumlar</span>
+                </div>
+            </a>
+            
+            <a href="hedef17.html" target="_blank" class="goal-box c-17">
+                <img src="img/amac-icin-ortaklıklar.png" class="goal-img">
+                <div class="goal-overlay"></div>
+                <div class="goal-info">
+                    <span class="goal-number">17</span>
+                    <span class="goal-text"> Amaçlar için Ortaklıklar</span>
+                </div>
+            </a>
+            
+            <div class="goal-box c-logo">
+                <img src="img/site logo.jpg" alt="Logo">
+            </div>
+        </div>
+    </section>
+
+    <section class="extra-topics-section" style="background: white; padding: 80px 20px; text-align: center; border-top: 1px solid #eee;">
+        <div class="content-container">
+            <h2 style="font-family: 'Poppins', sans-serif; font-size: 2rem; color: #333; margin-bottom: 20px;">
+                Farkındalık Köşesi
+            </h2>
+            <p style="color: #666; margin-bottom: 50px;">Küresel amaçların desteklediği özel araştırma konularımız.</p>
+
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+                
+                <a href="sanal-bahis.html" class="extra-card">
+                    <img src="img/kumar.jpg" alt="Sanal Bahis"> 
+                    <div class="extra-content">
+                        <h3 class="extra-title">Sanal Bahis ve Kumar Bağımlılığı</h3>
+                        <p class="extra-desc">Sanal ortamda yasa dışı bahis ve kumarın tehlikeleri.</p>
+                        <span class="extra-btn">İncele →</span>
+                    </div>
+                </a>
+
+                <a href="sosyal-medya/sosyalmedya-index.html" target="_blank" class="extra-card">
+                    <img src="sosyal-medya/sosimg/afis.jpg" alt="Sosyal Medya">
+                    <div class="extra-content">
+                        <h3 class="extra-title">Sosyal Medya Bağımlılığı</h3>
+                        <p class="extra-desc">Dijital dünyada kaybolmadan sağlıklı kalmanın yolları.</p>
+                        <span class="extra-btn">İncele →</span>
+                    </div>
+                </a>
+
+                <a href="oyun-bagımlılıgı/oyun-bagımlılıgı-index.html" target="_blank" class="extra-card">
+                    <img src="oyun-bagımlılıgı/fotolar/play.jpeg" alt="Oyun Bağımlılığı">
+                    <div class="extra-content">
+                        <h3 class="extra-title">Oyun Bağımlılığı</h3>
+                        <p class="extra-desc">Oyun oynarken zamanı ve gerçekliği yönetebilmek.</p>
+                        <span class="extra-btn">İncele →</span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-icons-footer" style="margin-bottom: 20px;">
+            <a href="https://www.instagram.com/kureselamaclar/#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/kureselamaclar" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/kureselamaclar" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+
+        <p style="opacity: 0.8; font-size: 0.95rem;">
+            © 2025 Küresel Amaçlar Web Tasarım Dersi Final Ödevi | Designed by 
+            <a href="ekibimiz.html" style="color: #009EDB; font-weight: bold; text-decoration: none;">&lt;body&gt; Guards</a>
+        </p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harekete Geç | Küresel Amaçlar</title>
+    
+    <link rel="icon" type="image/png" href="img/kureselamaclar-yenilogo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /*   GENEL GÜVENLİK AYARLARI (bu kodları yapmadığımız zaman tasarım düzeni bozuluyor) */
+        
+        /* Tüm elementler (*) için geçerli kural */
+        * {
+            /* Kutu modelini sabitler. Padding eklendiğinde kutunun şişmesini engeller */
+            box-sizing: border-box; 
+        }
+
+        /* Tarayıcının varsayılan boşluklarını sıfırlıyoruz */
+        body, h1, h2, h3, h4, p, ul, li, figure, blockquote {
+            margin: 0; 
+            padding: 0; 
+        }
+
+        /* GENEL SAYFA AYARLARI  */
+        html {
+            /* bu ksıımda Linklere tıkladığımzı zaman sayfanın aniden atlamasını engellemesini ve kayarak gitmesini sağlar */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif; /* Varsayılan yazı tipi */
+            background-color: #f0f2f5; /* Göz yormayan açık gri arka plan tercih ettim */
+            color: #333; /* Tam siyah yerine koyu gri  */
+            overflow-x: hidden; /* bu ksıım yatay kaydırma çubuğunu gizler */
+        }
+
+        /* Tüm linklerin alt çizgisini kaldırır ve renk geçişlerini yumuşatır */
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* HEADER (ÜST MENÜ) */
+        header {
+            background: rgba(255, 255, 255, 0.99); /* %99 Görünür beyaz */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Altına hafif gölge */
+            
+            /* Sticky: Sayfa aşağı kaysa bile menü en tepede sabit kalır */
+            position: sticky; 
+            top: 0;
+            z-index: 1000; /* Diğer tüm öğelerin üstünde kalmasını sağlar */
+            padding: 10px 0;
+            backdrop-filter: blur(10px); /* Buzlu cam efekti, arkadan geçenler bulanıklaşır */
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .header-container {
+            max-width: 1400px; /* İçerik çok geniş ekranlarda dağılmasın */
+            margin: 0 auto; /* Ortala */
+            display: flex; /* Logo ve menüyü yan yana koyuyoruz */
+            justify-content: space-between; /* Birini sağa birini sola yaslıyoruz */
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        /* SOL TARAFTAKİ LOGO GRUBU  */
+        .header-left-group {
+            display: flex; /* Bu kutunun içindeki elemanları (Logo, Çizgi, Üniversite yazısı) alt alta durmaktan kurtarır ve yan yana dizer. */
+            align-items: center; /* Elemanların boyları farklı olsa bile (biri uzun resim, biri kısa yazı), hepsini tam orta noktalarından hizalar.*/
+            gap: 15px; /* Elemanlar Arası Boşluk Yan yana dizilen bu elemanların birbirine yapışmasını engeller. */
+        }
+
+        /* Proje Logosu */
+        .project-logo img { 
+            height: 50px; 
+            display: block; /* display block dediğimiz zaman o element div gibi veya paragraf gibi davranır. tüm satırları kaplar kendinden sonra gelen hher satırı aşağı atar */
+            transition: transform 0.3s; 
+        }
+        .project-logo img:hover { transform: scale(1.05); /* Mouse gelince logo %5 büyüsün istioyorum */ }
+
+        /* Dikey Ayraç Çizgisi */
+        .header-divider {
+            height: 35px;
+            width: 1px;
+            background-color: #ccc;
+        }
+
+        /* AKÜ Kurumsal Alanı */
+        .aku-branding {
+            display: flex; /* yukarıda yazdığımın aynısını kopyalıyorum; Bu kutunun içindeki elemanları (Logo, Çizgi, Üniversite yazısı) alt alta durmaktan kurtarır ve yan yana dizer. */
+            align-items: center; /* Bu kodu yazdığında: Tarayıcı o küçük yazıyı alır, logonun tam göbeğine indirir. */
+            gap: 12px; /* Elemanlar Arası Boşluk Yan yana dizilen bu elemanların birbirine yapışmasını engeller. */
+        }
+        .aku-branding img {
+            height: 45px;
+            border-radius: 50%; /* sivri köşeleri yuvarlak yapar */
+        }
+        .aku-branding span {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.75rem; /* Yazı boyutu (Kibar olsun diye küçük) */
+            color: #444;
+            font-weight: 700;
+            line-height: 1.2; /* Bu kod, satır aralığını Sıkı ve Tok tutmak için kullanılır. */
+            display: block; /* kaymayı önler */
+        }
+
+        /* Menü Linkleri */
+        nav ul { display: flex; gap: 30px; } /* Menü elemanlarını yan yana dizsin */
+        
+        nav ul li a {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #444;
+            font-size: 0.95rem; /* Yazı boyutu (Kibar olsun diye küçük) */
+            position: relative; /* Alt çizgi animasyonu için referans noktası koyurıyruz */
+            display: block; /* kaymayı önler */
+        }
+
+        /* MENÜ ALT ÇİZGİ ANİMASYONU (Sözde Element ::after) ?????? sonra bu kısıma bak !!!!! */
+        nav ul li a::after {
+            content: ''; /* Bu satır olmazsa çizgi oluşmaz. Tarayıcıya "Burada boş bir kutu yarat" deriz. İçine yazı yazmayacağımız için tırnakların içi boştur.*/
+            position: absolute; /* burası bağısız konumlandırmamızı sağlar */
+            width: 0; /* Başlangıçta çizgi yok */
+            height: 3px;
+            bottom: -5px; /* Çizgiyi yazının tam altına yapıştırmak yerine, 5 piksel daha aşağıya iter. */
+            left: 0;
+            background-color: #009EDB; /* Mavi renk */
+            transition: 0.3s; /* Uzama hızı */
+        }
+        /* Mouse üzerine gelince genişliği %100 yapalım */
+        nav ul li a:hover::after { width: 100%; }
+        nav ul li a:hover { color: #009EDB; }
+
+        /* ANA İÇERİK KAPSAYICISI */
+        main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* GİRİŞ BÖLÜMÜ ANİMASYONU */
+        .intro-article {
+            text-align: center; /* Kısaca  yazıları bulunduğu kutunun tam ortasına getir demektir. */
+            margin-bottom: 100px; /* Altındaki boşluk */
+            margin-top: 60px; /* Üstten biraz boşluk bıraktım, menüye yapışmasın */
+            /* Sayfa açılınca giriş yazısı yavaşça belirsin */
+            animation: fadeIn 1.5s ease-out; 
+        }
+        
+        /* Animasyonun kuralları: Görünmezden ve aşağıdan başla -------> Görünür ol ve yerine gel */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .intro-article img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px; /* köşe yumuşatma */
+            margin-bottom: 30px; /* Altındaki boşluk */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .intro-article h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem; /* Yazı boyutu  */
+            color: #222;
+            font-weight: 800;
+            margin-bottom: 20px; /* Altındaki boşluk */
+        }
+        .intro-article p {
+            font-size: 1.1rem;
+            line-height: 1.6; /* Bu kod, satır aralığını Sıkı ve Tok tutmak için kullanılır. */
+            color: #555;
+        }
+
+        /* GÜNÜN GÖREVİ (OYUNLAŞTIRMA)*/
+        /* Bu kısımda kullanıcının rastgele görev seçmesini sağlıyoruz */
+        .game-section {
+            text-align: center;
+            background: white;
+            padding: 40px; /* boşluk */
+            border-radius: 20px; /* köşe yumuşatma */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 80px; /* Altındaki boşluk */
+            margin-top: 100px; /* Üstteki içerikten iyice ayıralım */
+            border: 2px dashed #009EDB; /* Kesikli mavi çizgi ile dikkat çeksin */
+        }
+
+        .game-section h3 {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Oyun butonunun stili */
+        .game-btn {
+            background: linear-gradient(45deg, #009EDB, #00d2ff); /* Mavi degrade */
+            color: white;
+            border: none; /* gereksiz çizgileri siler Eğer border: none; yazmasaydık, o şık mavi butonun etrafında koyu gri, uyumsuz bir çizgi olurdu. */
+            padding: 15px 40px;
+            font-size: 1.2rem; /* Yazı boyutu  */
+            border-radius: 50px; /* köşeleri yumuşatma */
+            cursor: pointer; /* Bir butona, resme veya yazıya "Ben interaktifim, ben bir düğmeyim" özelliği kazandırmak için kullanılır. */
+            font-weight: bold; /* Yazıya "Burası önemli, buraya bak" dedirtme kodudur */
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0, 158, 219, 0.3);
+        }
+
+        .game-btn:hover {
+            transform: scale(1.05) translateY(-3px); /* Büyüme ve zıplama efekti */
+            box-shadow: 0 15px 30px rgba(0, 158, 219, 0.5);
+        }
+
+        /* Rastgele görev metninin çıkacağı kutu */
+        .task-display {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #E5243B; /* Kırmızı renk */
+            min-height: 50px; /* Boşken zıplama yapmasın diye yükseklik verdim */
+            opacity: 0; /* Başlangıçta gizli */
+            transition: 0.5s;
+        }
+
+        /* LEVEL KART KISIMLARI */
+        .level-section {
+            position: relative; /* Alt çizgi animasyonu için referans noktası koyuyoruz */
+            margin-bottom: 120px; /* altındaki boşluk */
+            padding: 40px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.05);
+            overflow: hidden; /* Sınırdan taşanı yok et komutudur. */
+            
+            /* animasyon başlangıc durumları, gizli ve aşağıda */
+            opacity: 0; 
+            transform: translateY(100px); 
+            transition: all 0.8s ease-out;
+        }
+
+        /* JS bu sınıfı eklediğinde kart görünür olur ve yukarı kayar */
+        .level-section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sol taraftaki renkli ince şerit çeker */
+        .level-section::before {
+            content: ''; /* Bu satır olmazsa çizgi oluşmaz. Tarayıcıya "Burada boş bir kutu yarat" deriz. İçine yazı yazmayacağımız için tırnakların içi boştur.*/
+            position: absolute; /* burası bağımsız konumlandırmamızı sağlar */
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+        }
+
+        .level-header {
+            display: flex; /* yukarıda yazdığımın aynısını kopyalıyorum; Bu kutunun içindeki elemanları (Logo, Çizgi, Üniversite yazısı) alt alta durmaktan kurtarır ve yan yana dizer. */
+            align-items: center; /* Bu kodu yazdığında: Tarayıcı o küçük yazıyı alır, logonun tam göbeğine indirir. */
+            gap: 30px; /* Elemanlar Arası Boşluk Yan yana dizilen bu elemanların birbirine yapışmasını engeller. */
+            margin-bottom: 40px; /* kenar yumuşatma */
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 20px; /* Kutunun kendi boyunu uzatır. */
+        }
+
+        .level-header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .level-header h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0; /* Ortala */
+        }
+
+        /* ızgara sistemi yapıyoruz bir sonrakinde zikzak modeli kullanmıştım */
+        .actions-grid {
+            display: grid; /* Sayfayı kare kare bölüp yönetmek için kullanılan, en gelişmiş hizalama sistemidir. */
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* bu ksıım ekran genişliğine göre sığabildiği kadar 300px'lik kart sığdırır */
+            gap: 20px; /* Elemanlar Arası Boşluk Yan yana dizilen bu elemanların birbirine yapışmasını engeller. */
+        }
+
+        /* Küçük Madde Kartları */
+        .action-card {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+            position: relative;
+            
+            /* Bu kartlar da JS ile domino taşı gibi sırayla gelecek */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        /* Ana bölüm aktif olunca içindeki kartlar görünür olacak */
+        .level-section.active .action-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .action-card:hover {
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-5px) !important;
+        }
+
+        /* Kartların başındaki OK işareti */
+        .action-card::before {
+            content: '➜'; 
+            font-size: 1.5rem;
+            margin-right: 10px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /*  RENKLENDİRME KISMI */
+        /* Her seviye için farklı renk tanımları ekliyoruz sımdı */
+        .lvl-1::before { background: #E5243B; } /* Kırmızı Şerit */
+        .lvl-1 .level-header h3, .lvl-1 .action-card::before { color: #E5243B; } /* Kırmızı Yazı */
+        
+        .lvl-2::before { background: #FD9D24; } /* Turuncu */
+        .lvl-2 .level-header h3, .lvl-2 .action-card::before { color: #FD9D24; }
+
+        .lvl-3::before { background: #3F7E44; } /* Yeşil */
+        .lvl-3 .level-header h3, .lvl-3 .action-card::before { color: #3F7E44; }
+
+        .lvl-4::before { background: #009EDB; } /* Mavi */
+        .lvl-4 .level-header h3, .lvl-4 .action-card::before { color: #009EDB; }
+
+        /* YUKARI ÇIK BUTONU */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #333;
+            color: white;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 50%; /* kenar yumuşatma */ 
+            font-size: 24px;
+            transition: 0.3s;
+            z-index: 1000; /* Bu kod, web sayfasındaki "Katman Sırasını" (Derinliği) belirler. */
+            opacity: 0; /* Başlangıçta gizli kalsın */
+            pointer-events: none; /* Tıklanmayı engellesin */
+        }
+        /* JS ile eklenecek 'show' sınıfı butonu görünür yapar */
+        .scroll-top.show { opacity: 1; pointer-events: all; }
+        .scroll-top:hover { background-color: #E5243B; transform: scale(1.1); }
+
+        /* FOOTER (ALT KISIM) */
+        footer {
+            background: #1a1a2e; /* Koyu lacivert */
+            color: #fff; /* Beyaz yazı */
+            padding: 50px 20px; 
+            text-align: center; 
+            margin-top: 50px;
+        }
+        
+        /* Footer içindeki sosyal medya ikonları kapsayıcısı */
+        .social-icons-footer { margin-bottom: 20px; }
+        
+        /* İkonların stili */
+        .social-icon-footer { 
+            color: white; 
+            font-size: 1.5rem; /* İkon büyüklüğü */
+            margin: 0 15px; /* Aralarındaki boşluk */
+            transition: 0.3s; 
+        }
+        /* Üzerine gelince mavi olsun */
+        .social-icon-footer:hover { color: #009EDB; }
+
+        /* MOBİL UYUMLULUK (mobil uyumluluk konusunda yapay zekadan destek alındı ) */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; padding: 10px; }
+            .header-left-group { flex-direction: column; text-align: center; gap: 10px; }
+            .header-divider { display: none; }
+            .aku-branding span { font-size: 0.65rem; }
+            
+            nav ul { flex-wrap: wrap; justify-content: center; }
+            .level-section { padding: 20px; }
+            .level-header { flex-direction: column; text-align: center; }
+            /* Mobilde kartları tek sütuna düşür */
+            .actions-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            
+            <div class="header-left-group">
+                <a href="index.html" class="project-logo">
+                    <img src="img/kureselamaclar-yenilogo.png" alt="Küresel Amaçlar Projesi">
+                </a>
+                
+                <div class="header-divider"></div>
+                
+                <a href="https://aku.edu.tr" target="_blank" class="aku-branding">
+                     <img src="img/afyonkocatepelogo.jpg" alt="AKÜ Logosu">
+                     <span>Afyon Kocatepe Üniversitesi<br>Sürdürülebilirlik Koordinatörlüğü</span>
+                </a>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">ANA SAYFA</a></li>
+                    <li><a href="harekete-gec.html" style="color: #009EDB;">HAREKETE GEÇ</a></li>
+                    <li><a href="neyapabilirim.html">NE YAPABİLİRİM?</a></li>
+                    <li><a href="skanedir.html">SKA NEDİR?</a></li>
+                    <li><a href="hakkında.html">HAKKINDA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        
+        <article class="intro-article">
+            <img src="img/Gemini_Generated_Image_ov5u65ov5u65ov5u.png" alt="Tembel İnsan Rehberi">
+            <h2>Dünyayı Değiştirmek İçin Rehber</h2>
+            <p><strong>Aşağıdaki rehberi inceleyerek sen de değişimin bir parçası olabilirsin. Unutma, en küçük adım bile büyük farklar yaratır!</strong></p>
+        </article>
+
+        <section class="level-section lvl-1">
+            <div class="level-header">
+                <img src="img/kanepefotosu.png" alt="Seviye 1">
+                <h3>Seviye 1 - Kanepende Otururken</h3>
+            </div>
+            
+            <div class="actions-grid">
+                <div class="action-card task-item">Kullanmadığın elektronik cihazların fişlerini tek bir uzatma kablosunda topla ve kapat.</div>
+                <div class="action-card task-item">Banka dekontlarının kağıt hâlini kullanmak yerine faturalarını dijital ortamda öde.</div>
+                <div class="action-card task-item">Sosyal medyada kadın hakları ve iklim kriziyle ilgili paylaşımları destekle.</div>
+                <div class="action-card task-item">Hatırlaman gereken bir bilgi mi var? Çıktı almak yerine dijital not kullan.</div>
+                <div class="action-card task-item">Odadan ayrılırken ışıkları kapatmayı unutma.</div>
+                <div class="action-card task-item">İnternet alışverişlerinde sürdürülebilir markaları tercih et.</div>
+                <div class="action-card task-item">Çevrimiçi zorbalığı bildir, güvenli bir internete katkı sağla.</div>
+            </div>
+        </section>
+
+        <section class="level-section lvl-2">
+            <div class="level-header">
+                <img src="img/evinkahramani.png" alt="Seviye 2">
+                <h3>Seviye 2 - Evde Yapabileceklerin</h3>
+            </div>
+            <div class="actions-grid">
+                <div class="action-card task-item">Kıyafetlerini kurutma makinesi yerine doğal kurumaya bırak.</div>
+                <div class="action-card task-item">Duş sürelerini kısa tutarak su tasarrufu yap.</div>
+                <div class="action-card task-item">Kırmızı et tüketimini azalt, bitkisel beslenmeye ağırlık ver.</div>
+                <div class="action-card task-item">Yemek artıklarını çöpe atma, kompost yap veya değerlendir.</div>
+                <div class="action-card task-item">Geri dönüşüm (Kağıt, Plastik, Cam) kutularını evinde ayır.</div>
+                <div class="action-card task-item">Enerji tasarruflu ampuller ve cihazlar kullanmaya özen göster.</div>
+                <div class="action-card task-item">Bulaşıkları makineye koymadan önce sudan geçirme, direkt koy.</div>
+            </div>
+        </section>
+
+        <section class="level-section lvl-3">
+            <div class="level-header">
+                <img src="img/mahalleninefendisi.png" alt="Seviye 3">
+                <h3>Seviye 3 - Ev Dışında</h3>
+            </div>
+            <div class="actions-grid">
+                 <div class="action-card task-item">Alışverişini yerel esnaftan yaparak mahalleye destek ol.</div>
+                <div class="action-card task-item">Şekli bozuk meyve-sebzeleri alarak gıda israfını önle.</div>
+                <div class="action-card task-item">Plastik poşet kullanma, kendi bez çantanı taşı.</div>
+                <div class="action-card task-item">Kısa mesafelerde yürümeyi veya bisikleti tercih et.</div>
+                <div class="action-card task-item">Tek kullanımlık kahve bardakları yerine termosunu kullan.</div>
+                <div class="action-card task-item">İkinci el eşya alıp satarak döngüsel ekonomiye katıl.</div>
+                <div class="action-card task-item">Aracının bakımını aksatma, emisyonu düşür.</div>
+            </div>
+        </section>
+
+        <section class="level-section lvl-4">
+            <div class="level-header">
+                <img src="img/ayincalisani.png" alt="Seviye 4">
+                <h3>Seviye 4 - İşyerinde</h3>
+            </div>
+            <div class="actions-grid">
+                <div class="action-card task-item">Artan yemekleri çöpe atma, ihtiyaç sahiplerine ulaştır.</div>
+                <div class="action-card task-item">İşyerinde eşitlik ve adaleti savun, ayrımcılığa karşı dur.</div>
+                <div class="action-card task-item">Gençlere ve stajyerlere mentorluk yap, bilgi paylaş.</div>
+                <div class="action-card task-item">Kağıt israfını önlemek için dijital çalışmayı teşvik et.</div>
+                <div class="action-card task-item">İşe bisikletle veya toplu taşımayla gitmeyi dene.</div>
+                <div class="action-card task-item">Ofiste geri dönüşüm kutularının kullanılmasını sağla.</div>
+                <div class="action-card task-item">Kurumsal sosyal sorumluluk projelerine öncülük et.</div>
+            </div>
+        </section>
+
+        <section class="game-section">
+            <h3>🤔 Hepsini Okudun Ama Karar Veremedin mi?</h3>
+            <p style="margin-bottom: 20px; color: #666;">Çarkı çevir, şansına ne çıkarsa bugün onu yap!</p>
+            
+            <button class="game-btn" onclick="getRandomTask()">🎲 Bana Rastgele Bir Görev Ver!</button>
+            
+            <div id="task-display" class="task-display"></div>
+        </section>
+
+    </main>
+
+    <a href="#" class="scroll-top" title="Yukarı Çık">⬆</a>
+
+    <footer>
+        
+        <div class="social-icons-footer">
+            <a href="https://www.instagram.com/kureselamaclar/#" target="_blank" class="social-icon-footer"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/kureselamaclar" target="_blank" class="social-icon-footer"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/kureselamaclar" target="_blank" class="social-icon-footer"><i class="fab fa-facebook"></i></a>
+        </div>
+
+        <p style="opacity: 0.8; font-size: 0.95rem;">
+            © 2025 Küresel Amaçlar Web Tasarım Dersi Final Ödevi | Designed by 
+            <a href="ekibimiz.html" style="color: #009EDB; font-weight: bold; text-decoration: none;">&lt;Body&gt; Guards</a>
+        </p>
+    </footer>
+
+    <script>
+        // 1. SCROLL REVEAL (Kaydırdıkça Açılma Efekti)
+        // Kullanıcı sayfayı her kaydırdığında 'reveal' fonksiyonunu çalıştır
+        window.addEventListener('scroll', reveal);
+
+        function reveal() {
+            var reveals = document.querySelectorAll('.level-section'); // Tüm seviye kutularını seç
+            var scrollTopBtn = document.querySelector('.scroll-top');
+
+            // YUKARI ÇIK BUTONU KONTROLÜ 
+            // Eğer sayfa 300px'den fazla aşağı kaymışsa butonu göster
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+
+            // BÖLÜM ANİMASYONLARI 
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight; // Pencere yüksekliği
+                var elementTop = reveals[i].getBoundingClientRect().top; // Elemanın tepe noktası
+                var elementVisible = 150; // Elemanın 150px'i görününce tetikle
+
+                if (elementTop < windowHeight - elementVisible) {
+                    // 1. Ana kutuyu görünür yapıyotuz
+                    reveals[i].classList.add("active"); 
+                    
+                    // 2. DOMİNO ETKİSİ 
+                    // Kutunun içindeki küçük kartları tek tek seçiyoruz
+                    let cards = reveals[i].querySelectorAll('.action-card');
+                    
+                    // Her bir kart için döngü başlatıyoruz
+                    cards.forEach((card, index) => {
+                        // setTimeout ile her karta farklı gecikme veriyoruzz
+                        // 1. kart 0ms, 2. kart 100ms, 3. kart 200ms sonra gelir...
+                        setTimeout(() => {
+                            card.style.opacity = "1";
+                            card.style.transform = "translateY(0)";
+                        }, index * 100); 
+                    });
+                }
+            }
+        }
+        
+        // Sayfa ilk yüklendiğinde de bir kez kontrol et (En üstteki görünsün diye)
+        reveal();
+
+        // RASTGELE GÖREV SEÇİCİ
+        function getRandomTask() {
+            // Sayfadaki tüm görevleri topluyoruz
+            // 'task-item' sınıfı verdiğim için kolayca seçebiliyorum
+            const allTasks = document.querySelectorAll('.task-item');
+            
+            // Eğer görev varsa (hata önleyici)
+            if (allTasks.length > 0) {
+                // Rastgele sayı üret
+                const randomIndex = Math.floor(Math.random() * allTasks.length);
+                
+                // Seçilen görevin metnini al
+                const selectedTaskText = allTasks[randomIndex].innerText;
+                
+                // Ekrana yazdıracağımız kutuyu seç
+                const displayBox = document.getElementById('task-display');
+                
+                // Animasyonlu geçiş için önce gizle
+                displayBox.style.opacity = 0;
+                
+                // Kısa süre sonra yeni görevi göster
+                setTimeout(() => {
+                    displayBox.innerText = "✨ " + selectedTaskText;
+                    displayBox.style.opacity = 1;
+                }, 200);
+            }
+        }
+    </script>
+
+</body>
+</html>

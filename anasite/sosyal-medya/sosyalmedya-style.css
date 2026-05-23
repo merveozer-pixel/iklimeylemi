@@ -1,0 +1,302 @@
+* {    /*Burda bütün özellikleri sıfırladım kendi istediğim özellikleri ekliycem*/
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /*Elementinin genişliği ve yüksekliğini hesaplama şeklini değiştiriyor*/
+}
+body{
+    font-family: Arial, Helvetica, sans-serif; /*Fontunu değiştirdim*/
+    background-color: #f0f2f5;  /*Arka plan rengini ayarladım*/
+    color: #333;  /*Yazı rengi ayarladım*/
+}
+header{
+    background:linear-gradient(to right, #1877f2, #4a90e2); 
+    color: beige;
+    padding: 20px 0px;
+    text-align: center;  /*Yazıları ortaladım*/
+}
+header h1 {
+    margin-bottom: 10px; /*Başlıkla header arasında boşluk bıraktım*/
+    font-family: 'Poppins', sans-serif;  /* Modern ve güçlü */
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+nav ul li {
+    display: inline-block;  /*Linkleri yan yana getirdim*/
+    margin-right: 20px;     /*Aralarında boşluk bıraktım*/
+}
+nav ul li a {
+    color: azure;
+    text-decoration: none;  /*Altındaki çizgiyi kaldırdım*/
+}
+nav ul li a:hover{
+    text-decoration: underline;  /*Okla üstüne geldiğimde altta çizgi gözüküyor*/
+     color: #e3f2fd;
+}
+.hero{
+    background-image: url("sosimg/insan.jpg");  /*arka plan resmi*/
+    background-size: cover;
+    background-position: center;
+    color: white; 
+    text-align: center;
+    padding: 100px 0px;
+    position: relative;  
+}
+
+/* Resmin üstüne koyu katman yaptım*/
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);  
+    z-index: 1;
+}
+
+.hero h1, .hero p {
+    position: relative;
+    z-index: 2;  /* Yazıların üstte görünmesi için */
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 10px rgba(0,0,0,0.9);
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+}
+.overview{
+    max-width: 1200px;
+    margin: 20px auto;
+    position: relative;
+}
+.overview h2 {
+    margin-bottom: 20px;
+}
+.menu-items {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;  /* Aralarına düzenli boşluk bıraktım */
+}
+.menu-item {
+    width: calc(33.333% - 14px);  /* hesap makinesini kullandım */
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: white;  /* Kutucuğun arka plan rengi */
+    border-radius: 8px;  /* Köşeleri yuvarlaklaştırdım */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);  /* gölge */
+}
+.menu-item img {
+    width: 100%;
+    height: 200px;  
+    object-fit: cover;  /* Resmi kırpmadan sığdırır */
+    display: block;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+.menu-item h3 {
+    margin-bottom: 10px;
+    color: #1877f2;
+}
+.menu-item p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666;
+}
+.footer {
+    background-color: #1c1e21;
+    color: #b0b3b8;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+.content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+.info-section {    /*görsel ile metin yan yana olsun diye*/
+    display: flex; /*içerikleri yan yana dizdim*/
+    align-items: center;  /*görsel ile metin alt alta olsun*/
+    gap: 40px;
+    margin-bottom: 60px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;   /*köşeleri yuvarladım*/
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);  /*gölge ekledim*/
+}
+.info-section.reverse {
+    flex-direction: row-reverse;   /*ögeleri ters çevirdi*/
+}
+.info-image {
+    flex: 1;
+    max-width: 45%;
+}
+.info-image img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;  /*görsel kutunun hepsini doldursun*/
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /*gölge ekledim*/
+}
+.info-text {
+    flex: 1;
+    max-width: 55%;
+}
+.info-text h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+.info-text p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 15px;
+}
+.info-text p strong {
+    color: #4b90c1;
+    font-weight: 600;
+}
+.cta-section {
+    text-align: center;  /*ortalaması için*/
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 50px 30px;
+    border-radius: 15px;
+    margin-top: 60px;
+}
+.cta-section h3 {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 25px;
+    font-family: 'Poppins', sans-serif;
+}
+.cta-button {
+    display: inline-block;   /*satır içi blok*/
+    background-color: white;
+    color: #667eea;
+    padding: 15px 40px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: transform 0.3s, box-shadow 0.3s;  /* 0.3 saniyede geçiş yapsın*/
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);  /*3px yukarı*/
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+@media (max-width: 768px) {  /* Mobile uyumluluk*/
+    .info-section, .info-section.reverse {  /*yan yana olan bölümleri alt alta yap*/
+        flex-direction: column;
+    }
+    .info-image, .info-text {
+        max-width: 100%;  /*görsel ve metin tam genişlikte olsun*/
+    }}
+.info-text h2 {
+    color: #333; 
+}
+.contact-form {
+    display: flex;
+    flex-direction: column;  /*elemanların alt alta dizilmesini sağlıyor*/
+    gap: 15px; /* Kutular arası boşluk */
+}
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;  /*kutunun etrafına 1pxlik ince gri çizgi ekledim*/
+    border-radius: 5px;  /*köşegnleri yuvarlaklaştırdım*/
+    font-family: inherit;
+}
+
+.contact-form button {
+    cursor: pointer;  /* Fareyle üzerine geldiğimde imlec el oluyor.*/
+    border: none;     /*etrafındaki çizgileri kaldırdım*/
+    transition: 0.3s; /*geçiş 3 saniye*/
+}
+h2, h3, 
+.info-text h2, 
+.info-text h3, 
+.overview h2, 
+.menu-item h3 {
+    color: #4674a9 !important; /* !important kullanarak diğer stillerin bu rengi ezmesini engelliyoruz */
+    font-family: 'Poppins', sans-serif;  /*yazı stilini ayarladım*/
+    font-weight: 700;
+}
+.cta-section h3 {
+    color: #ffffff !important;
+    margin-bottom: 20px;
+}
+.cta-section p {
+    color: #f0f0f0 !important;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+/* Afiş linkinin olduğu genel alanı ortaladık */
+.afis-container {
+    text-align: center;
+    margin: 40px 0;
+    padding: 20px;
+}
+
+.afis-container p {
+    margin-bottom: 15px;
+    color: #555;
+}
+.afis-link-button {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #ffffff;
+    color: #1a3a5f; 
+    border: 2px solid #1a3a5f;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+ul li strong {
+    color: #3ba4c6 !important;
+    font-weight: bold;
+}
+.team-full-width {
+    background-color: #f9fbff;
+    padding: 60px 20px !important;
+    border-radius: 15px;
+}
+.team-cards-row {  /* kartlar yan yana dursun diye*/
+    display: flex; 
+    justify-content: center;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+/* Kişi Kartı Tasarımı */
+.member-card-box {
+    background: white;
+    padding: 30px;
+    border-top: 5px solid #1c4881; /* Senin koyu mavi rengin */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    width: 350px; /* Geniş kartlar sayfayı dolu gösterir */
+    text-align: left;
+}
+.member-card-box strong {
+    color: #1c4881 !important;
+    font-size: 1.3rem;
+    display: block;
+    margin-bottom: 5px;
+}
+.member-card-box small {
+    color: #777;
+    display: block;
+    margin-bottom: 15px;
+}

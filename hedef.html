@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hedef Hakkında - İklim Eylemi 2025</title>
+
+    <!-- Tailwind CSS ve Chart.js -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: Inter (Tüm stiller yüklendi) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+
+        /* Navigasyon Cam Efekti */
+        .glass-nav { 
+            background: rgba(4, 120, 87, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Kaydırmada Ortaya Çıkma Animasyonu */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="antialiased text-slate-800">
+
+    <!-- ===================== NAVIGASYON ===================== -->
+    <nav class="glass-nav sticky top-0 z-50 shadow-lg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo: Yazı boyutu küçültüldü -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center group">
+                        <!-- İE Kutusu -->
+                        <span class="bg-yellow-300 text-green-900 px-1.5 py-0.5 rounded-md text-lg font-black leading-none">İE</span>
+                        <!-- Yazı Tipi ve Şekli -->
+                        <div class="ml-2 flex flex-col leading-none">
+                            <span class="text-lg font-extrabold tracking-wider text-white group-hover:text-yellow-300 transition duration-300 uppercase">
+                                İKLİM <span class="text-yellow-300">EYLEMİ</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Masaüstü Menü -->
+                <div class="hidden md:flex space-x-1 lg:space-x-4 items-center">
+                    <a href="index.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition text-sm font-medium">Ana Sayfa</a>
+                    <a href="hedef.html" class="px-4 py-2 rounded-lg bg-green-700 font-bold shadow-sm text-sm">Hedef Hakkında</a>
+                    <a href="sorunlar.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition text-sm font-medium text-gray-200">Sorunlar</a>
+                    <a href="cozumler.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition text-sm font-medium text-gray-200">Çözümler</a>
+                    <a href="uni.html" class="px-4 py-2 rounded-lg border-2 border-yellow-300 text-yellow-300 hover:bg-yellow-300 hover:text-green-900 transition font-bold ml-2 text-sm uppercase">Üniversitemizde Durum</a>
+                </div>
+
+                <!-- Mobil Menü Butonu -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="p-2 rounded-lg hover:bg-green-700 transition outline-none">
+                        <svg class="h-8 w-8 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobil Menü -->
+        <div class="hidden md:hidden bg-green-900 border-t border-green-800" id="mobile-menu">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="index.html" class="block px-4 py-3 rounded-xl hover:bg-green-800">Ana Sayfa</a>
+                <a href="hedef.html" class="block px-4 py-3 rounded-xl bg-green-700 font-bold">Hedef Hakkında</a>
+                <a href="sorunlar.html" class="block px-4 py-3 rounded-xl hover:bg-green-800">Sorunlar</a>
+                <a href="cozumler.html" class="block px-4 py-3 rounded-xl hover:bg-green-800">Çözümler</a>
+                <a href="uni.html" class="block px-4 py-3 rounded-xl text-yellow-300 font-bold border border-yellow-300 mt-2 text-center">Üniversitemizde Durum</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===================== ANA İÇERİK ===================== -->
+    <main class="max-w-5xl mx-auto py-16 px-6">
+        <header class="text-center mb-16 reveal">
+            <span class="text-green-600 font-bold tracking-widest uppercase text-sm mb-4 block italic">SKA 13: Küresel Hedefler</span>
+            <h1 class="text-5xl md:text-6xl font-black text-slate-900 mb-6 tracking-tight leading-tight">
+                Kritik Eşik: <span class="text-green-700 italic">2025</span>
+            </h1>
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium">
+                İklim değişikliği artık bir gelecek projeksiyonu değil, günlük hayatımızın sert bir gerçeğidir.
+            </p>
+        </header>
+
+        <!-- Grafik Paneli -->
+        <section class="mb-16 reveal">
+            <div class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl border border-slate-100">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Küresel Isınma Şeritleri (1850 - 2025)</h2>
+                    <p class="text-slate-500 italic">Mavi çizgiler soğuk, kırmızı çizgiler ise rekor sıcaklık yıllarını temsil eder.</p>
+                </div>
+                
+                <div class="chart-container mb-6">
+                    <canvas id="warmingStripesChart"></canvas>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 text-slate-600">
+                    <p class="leading-relaxed">
+                        Dünya Meteoroloji Örgütü'nün raporlarına göre, küresel sıcaklık artışı sanayi öncesi döneme kıyasla kritik <b>1.5°C sınırına</b> dayanmıştır. Kırmızı şeritlerin son yıllardaki yoğunluğu tehlikeyi özetliyor.
+                    </p>
+                    <p class="leading-relaxed">
+                        Karbon emisyonlarını 2030'a kadar <b>%45 azaltmak</b> ve 2050'de <b>Net Sıfır</b> hedefine ulaşmak için hemen şimdi, kampüsümüzden başlayarak eyleme geçmeliyiz.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bilgi Kartları -->
+        <section class="grid md:grid-cols-3 gap-6 reveal">
+            <div class="bg-green-50 p-8 rounded-3xl border border-green-100">
+                <div class="text-green-700 text-4xl font-black mb-2">1.5°C</div>
+                <p class="text-sm font-bold text-green-900 uppercase tracking-wide mb-3">Kritik Sınır</p>
+                <p class="text-slate-600 text-sm italic">Geri dönülemez noktanın eşiği.</p>
+            </div>
+
+            <div class="bg-yellow-50 p-8 rounded-3xl border border-yellow-100">
+                <div class="text-yellow-700 text-4xl font-black mb-2">%45</div>
+                <p class="text-sm font-bold text-yellow-900 uppercase tracking-wide mb-3">Azaltım Hedefi</p>
+                <p class="text-slate-600 text-sm italic">2030 yılına kadar küresel görevimiz.</p>
+            </div>
+
+            <div class="bg-blue-50 p-8 rounded-3xl border border-blue-100">
+                <div class="text-blue-700 text-4xl font-black mb-2">2050</div>
+                <p class="text-sm font-bold text-blue-900 uppercase tracking-wide mb-3">Net Sıfır</p>
+                <p class="text-slate-600 text-sm italic">Dengelenmiş bir dünya vizyonu.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="bg-green-950 text-white py-16 mt-20 border-t-4 border-yellow-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-green-900 pb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center">
+                        <span class="bg-yellow-300 text-green-900 px-1 py-0.5 rounded font-black text-lg">İE</span>
+                        <span class="ml-2 text-lg font-bold tracking-tighter uppercase italic text-yellow-300">İKLİM EYLEMİ</span>
+                    </div>
+                    <p class="text-green-200 text-sm leading-relaxed">"Geleceği Isıtma, Eyleme Geç!" <br>Üniversite Sürdürülebilirlik Vizyonu.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white uppercase text-xs tracking-widest mb-6">Site Haritası</h4>
+                    <ul class="text-green-300 text-sm space-y-3 font-medium">
+                        <li><a href="index.html" class="hover:text-yellow-300 transition">Ana Sayfa</a></li>
+                        <li><a href="sorunlar.html" class="hover:text-yellow-300 transition">Sorunlar</a></li>
+                        <li><a href="cozumler.html" class="hover:text-yellow-300 transition">Çözümler</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white uppercase text-xs tracking-widest mb-6 italic underline">İlgili SKA</h4>
+                    <div class="flex items-center gap-4 bg-green-900/50 p-4 rounded-2xl border border-green-800">
+                        <div class="w-12 h-12 bg-green-600 flex items-center justify-center font-black text-2xl rounded-xl border-2 border-yellow-300 text-yellow-300">13</div>
+                        <span class="text-xs font-bold leading-tight uppercase">İklim Eylemi</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 flex justify-between items-center text-[10px] text-green-500 uppercase tracking-widest font-bold">
+                <p>© 2025 Kampüs İklim İnisiyatifi</p>
+                <p>Aralık 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const ctx = document.getElementById('warmingStripesChart').getContext('2d');
+        const labels = Array.from({length: 176}, (_, i) => 1850 + i);
+        const backgroundColors = labels.map((year) => {
+            if (year < 1900) return '#08306b';
+            if (year < 1940) return '#4292c6';
+            if (year < 1980) return '#deebf7';
+            if (year < 2000) return '#fcae91';
+            if (year < 2015) return '#fb6a4a';
+            if (year < 2024) return '#cb181d';
+            return '#67000d';
+        });
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: labels.map(() => 1),
+                    backgroundColor: backgroundColors,
+                    borderWidth: 0,
+                    barPercentage: 1.0,
+                    categoryPercentage: 1.0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => context.label + " Yılı Sıcaklık Anomalisi"
+                        }
+                    }
+                },
+                scales: { x: { display: false }, y: { display: false } }
+            }
+        });
+    </script>
+</body>
+</html>

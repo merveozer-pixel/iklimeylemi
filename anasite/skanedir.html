@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKA NEDİR? | Küresel Amaçlar</title>
+    
+    <link rel="icon" type="image/png" href="resimler/kureselamaclar-yenilogo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* --- GENEL AYARLAR --- */
+        /* Renkleri ve fontu tek bir değişkene bağladım ki, yarın öbür gün canımız sıkılırsa tek bir yerden her şeyi değiştirebilelim. Pratiklik önemli! */
+        :root {
+            --bg-body: #ffffff;
+            --text-main: #333333;
+            --font-main: 'Montserrat', sans-serif;
+        }
+
+        /* Tarayıcıların kendi kafasına göre verdiği o garip boşlukları sıfırlıyoruz. Sayfanın patronu biziz. */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sayfanın genel havası burada belirleniyor. Flex yapısı kullandım ki footer en altta "ben buradayım" desin. */
+        body {
+            font-family: var(--font-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            background-color: var(--bg-body);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Linklerin o eski usul alt çizgisinden kurtulduk, daha modern bir geçiş efekti ekledik. */
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul, ol { list-style: none; }
+
+        /* --- EN ÜST GÖKKUŞAĞI ŞERİT --- */
+        .ska-rainbow-bar {
+            height: 6px;
+            width: 100%;
+            background: linear-gradient(to right, #E5243B, #DDA63A, #4C9F38, #00689D, #FD6925);
+        }
+
+        /* ============================================================
+           YENİ HEADER (ÜST MENÜ) AYARLARI - DİĞER SAYFALARLA EŞİTLENDİ
+        ============================================================ */
+        header {
+            background: rgba(255, 255, 255, 0.99);
+            padding: 10px 0;
+            position: sticky; /* Menü yapışık kalsın */
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e1e1e1;
+        }
+        .header-container {
+            width: 90%; max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+        }
+        .header-left-group { display: flex; align-items: center; gap: 15px; }
+        
+        .project-logo img { height: 50px; display: block; transition: 0.3s; }
+        .project-logo img:hover { transform: scale(1.05); }
+        
+        .header-divider { width: 1px; height: 35px; background: #ccc; }
+        
+        .aku-branding { display: flex; align-items: center; gap: 12px; }
+        .aku-branding img { height: 45px; border-radius: 50%; }
+        .aku-branding span { font-family: 'Poppins', sans-serif; font-size: 0.75rem; font-weight: 700; color: #444; }
+        
+        nav ul { display: flex; gap: 30px; }
+        nav ul li a { font-family: 'Poppins', sans-serif; font-weight: 600; color: #444; font-size: 0.95rem; position: relative; }
+        
+        /* Menü alt çizgi animasyonu */
+        nav ul li a::after { 
+            content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; 
+            background-color: #009EDB; transition: 0.3s; 
+        }
+        nav ul li a:hover::after { width: 100%; }
+        nav ul li a:hover { color: #009EDB; }
+
+        /* Mobil menü ayarı */
+        @media (max-width: 992px) {
+            .header-container { flex-direction: column; gap: 15px; }
+            .header-left-group { flex-direction: column; text-align: center; gap: 10px; }
+            .header-divider { display: none; }
+            nav ul { flex-wrap: wrap; justify-content: center; }
+        }
+
+        /* --- HERO (BAŞLIK) ALANI (SENİN KODLARIN) --- */
+        .hero-section {
+            background-color: #f9f9f9;
+            padding: 60px 0 60px 0; 
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .container {
+            max-width: 1400px; 
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            color: #000;
+            letter-spacing: -1px;
+        }
+
+        .hero-divider {
+            height: 6px;
+            width: 120px;
+            margin: 20px auto;
+            border-radius: 3px;
+            background: linear-gradient(to right, #E5243B, #DDA63A, #4C9F38, #00689D, #FD6925);
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            color: #222;
+            max-width: 950px;
+            margin: 0 auto 30px auto;
+            line-height: 1.5;
+            font-weight: 600;
+        }
+
+        .hero-description-text {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        /* --- İÇERİK ALANI (SENİN KODLARIN) --- */
+        #Content { padding: 50px 0; flex: 1; }
+
+        .big-featured-image {
+            width: 100%;
+            max-height: 550px; 
+            object-fit: cover; 
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            margin-bottom: 60px;
+        }
+
+        /* 17 Amacı listeleyen ızgara yapısı. */
+        .ska-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; 
+        }
+
+        .ska-grid li {
+            padding: 30px 25px;
+            border-radius: 15px;
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: 100%; 
+        }
+
+        .ska-grid li:hover {
+            transform: translateY(-10px); 
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+        }
+
+        .ska-grid h3 {
+            font-size: 1.5rem; 
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            line-height: 1.2;
+            border-bottom: 2px solid rgba(255,255,255,0.3); 
+            padding-bottom: 10px;
+        }
+
+        .ska-grid p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+        }
+
+        /* ============================================================
+           YENİ FOOTER (ALT KISIM) - DİĞER SAYFALARLA EŞİTLENDİ
+        ============================================================ */
+        footer {
+            background: #1a1a2e; color: #fff; padding: 50px 20px; text-align: center; margin-top: auto;
+        }
+        .social-icons-footer { margin-bottom: 20px; }
+        .social-icons-footer a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
+        .social-icons-footer a:hover { color: #009EDB; }
+    </style>
+</head>
+<body>
+
+    <div class="ska-rainbow-bar"></div>
+
+    <header>
+        <div class="header-container">
+            <div class="header-left-group">
+                <a href="index.html" class="project-logo">
+                    <img src="resimler/logoo.jpeg" alt="Küresel Amaçlar Projesi">
+                </a>
+                <div class="header-divider"></div>
+                <a href="https://aku.edu.tr" target="_blank" class="aku-branding">
+                     <img src="resimler/logo1.jpg" alt="AKÜ Logosu">
+                     <span>Afyon Kocatepe Üniversitesi<br>Sürdürülebilirlik Koordinatörlüğü</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">ANA SAYFA</a></li>
+                    <li><a href="harekete-gec.html">HAREKETE GEÇ</a></li>
+                    <li><a href="neyapabilirim.html">NE YAPABİLİRİM?</a></li>
+                    <li><a href="skanedir.html" style="color: #009EDB;">SKA NEDİR?</a></li>
+                    <li><a href="hakkında.html">HAKKINDA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">SKA NEDİR?</h1>
+            <div class="hero-divider"></div>
+            
+            <p class="hero-subtitle">
+                Gezegenimizi korumak ve herkes için müreffeh bir gelecek inşa etmek amacıyla atılmış <strong>evrensel bir adım.</strong>
+            </p>
+
+            <div class="hero-description-text">
+                <p>
+                    <strong>Sürdürülebilir Kalkınma Amaçları (SKA)</strong>, diğer bir adıyla Küresel Amaçlar, 2015 yılında Birleşmiş Milletler üyesi tüm ülkeler tarafından kabul edilen 2030 gündeminin merkezinde yer alır. İnsanlık için ortak bir barış ve refah planı sunan bu amaçlar; yoksulluğu ortadan kaldırmayı hedeflerken, iklim değişikliğiyle mücadele etmeyi ve kimseyi arkada bırakmamayı temel felsefe olarak benimser.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="Content">
+        <div class="container">
+            
+            <div class="big-image-container">
+                <img class="big-featured-image" src="resimler/skanedir.png" alt="Sürdürülebilir Kalkınma Görseli">
+            </div>
+
+            <ul class="ska-grid">
+                <li style="background-color: #e5243b;">
+                    <h3>1. Yoksulluğa Son</h3>
+                    <p>Yoksulluğun tüm biçimlerini dünyanın her yerinde sona erdirmek.</p>
+                </li>
+                <li style="background-color: #dda63a;">
+                    <h3>2. Açlığa Son</h3>
+                    <p>Açlığı bitirmek, gıda güvenliğini sağlamak ve sürdürülebilir tarımı desteklemek.</p>
+                </li>
+                <li style="background-color: #4c9f38;">
+                    <h3>3. Sağlık ve Kaliteli Yaşam</h3>
+                    <p>Her yaşta herkes için sağlıklı ve kaliteli bir yaşam sağlamak.</p>
+                </li>
+                <li style="background-color: #c5192d;">
+                    <h3>4. Nitelikli Eğitim</h3>
+                    <p>Kapsayıcı ve hakkaniyete dayanan nitelikli eğitimi sağlamak.</p>
+                </li>
+                <li style="background-color: #ff3a21;">
+                    <h3>5. Cinsiyet Eşitliği</h3>
+                    <p>Toplumsal cinsiyet eşitliğini sağlamak ve kadınları güçlendirmek.</p>
+                </li>
+                <li style="background-color: #26bde2;">
+                    <h3>6. Temiz Su ve Sanitasyon</h3>
+                    <p>Herkes için erişilebilir su ve atık su hizmetlerini güvence altına almak.</p>
+                </li>
+                <li style="background-color: #fcc30b;">
+                    <h3>7. Erişilebilir ve Temiz Enerji</h3>
+                    <p>Herkes için uygun fiyatlı ve sürdürülebilir enerjiye erişimi sağlamak.</p>
+                </li>
+                <li style="background-color: #a21942;">
+                    <h3>8. İnsana Yakışır İş</h3>
+                    <p>İstikrarlı ekonomik büyümeyi ve herkes için insana yakışır işleri desteklemek.</p>
+                </li>
+                <li style="background-color: #fd6925;">
+                    <h3>9. Sanayi ve Altyapı</h3>
+                    <p>Dayanıklı altyapılar tesis etmek ve yenilikçiliği güçlendirmek.</p>
+                </li>
+                <li style="background-color: #dd1367;">
+                    <h3>10. Eşitsizliklerin Azaltılması</h3>
+                    <p>Ülkelerin içinde ve arasındaki gelir adaletsizliğini azaltmak.</p>
+                </li>
+                <li style="background-color: #fd9d24;">
+                    <h3>11. Sürdürülebilir Şehirler</h3>
+                    <p>Şehirleri kapsayıcı, güvenli, dayanıklı ve sürdürülebilir kılmak.</p>
+                </li>
+                <li style="background-color: #bf8b2e;">
+                    <h3>12. Sorumlu Üretim ve Tüketim</h3>
+                    <p>Sürdürülebilir üretim ve tüketim kalıplarını sağlamak.</p>
+                </li>
+                <li style="background-color: #3f7e44;">
+                    <h3>13. İklim Eylemi</h3>
+                    <p>İklim değişikliği ve etkileri ile mücadele için acilen eyleme geçmek.</p>
+                </li>
+                <li style="background-color: #0a97d9;">
+                    <h3>14. Sudaki Yaşam</h3>
+                    <p>Okyanusları, denizleri ve deniz kaynaklarını korumak.</p>
+                </li>
+                <li style="background-color: #56c02b;">
+                    <h3>15. Karasal Yaşam</h3>
+                    <p>Ormanları yönetmek, çölleşmeyle mücadele etmek ve biyoçeşitlilik kaybını durdurmak.</p>
+                </li>
+                <li style="background-color: #00689d;">
+                    <h3>16. Barış ve Adalet</h3>
+                    <p>Barışçıl toplumlar tesis etmek ve adalete erişimi sağlamak.</p>
+                </li>
+                <li style="background-color: #19486a;">
+                    <h3>17. Amaçlar için Ortaklıklar</h3>
+                    <p>Sürdürülebilir kalkınma için küresel ortaklığı canlandırmak.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-icons-footer">
+            <a href="https://www.instagram.com/kureselamaclar/#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/kureselamaclar" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/kureselamaclar" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+
+        <p style="opacity: 0.8; font-size: 0.95rem;">
+            © 2025 Küresel Amaçlar Web Tasarım Projesi | Designed by 
+            <a href="ekibimiz.html" style="color: #009EDB; font-weight: bold; text-decoration: none;">&lt;Body&gt; Guards</a>
+        </p>
+    </footer>
+
+</body>
+</html>

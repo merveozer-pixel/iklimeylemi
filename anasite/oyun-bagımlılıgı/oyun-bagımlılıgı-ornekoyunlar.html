@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Örnek Oyunlar: Eğitici ve Dengeli Seçenekler</title>
+    <link rel="stylesheet" href="oyun-bagımlılıgı-style.css"> 
+    <style>
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .game-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border: 1px solid var(--ska-light-color);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .game-card-content {
+            padding: 20px;
+        }
+
+        .game-card-content h4 {
+            color: var(--banner-color);
+            margin-top: 0;
+        }
+
+        .badge {
+            background-color: var(--ska-main-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">Örnek Oyunlar</div>
+            <ul class="nav-links">
+                <li><a href="oyun-bagımlılıgı-index.html">Ana Sayfa</a></li>
+                <li><a href="oyun-bagımlılıgı-hedef.html">Hedef Hakkında</a></li>
+                <li><a href="oyun-bagımlılıgı-sorunlar.html">Sorunlar</a></li>
+                <li><a href="oyun-bagımlılıgı-cozumler.html">Çözümler</a></li>
+                <li><a href="oyun-bagımlılıgı-universitede_durum.html">Üniversitemizde Durum</a></li>
+                <li><a href="oyun-bagımlılıgı-ornekoyunlar.html" class="active">Örnek Oyunlar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <section class="ska-banner">
+            <h1>"Oyun Bağımlılığına Dur De: Sanal Dünya Kontrolünde Değil, Gerçek Hayat Senin Eserin!"</h1>
+        </section>
+
+        <section class="hero">
+            <h2>En çok beğenilen oyunlar</h2>
+            <div class="hero-content">
+                <img src="fotolar/pexel.jpeg" alt="Satranç veya strateji oyunu oynayan biri" class="page-image">
+                <p>Son yıllarda en beğenilen oyunlar, sürükleyici hikâyeleri, gerçekçi grafikleri ve rekabetçi yapılarıyla
+                     milyonlarca oyuncuyu kendine çekmektedir. Ancak bu popülerlik, oyun bağımlılığı riskini de beraberinde getirmektedir. Oyunlar eğlence ve stres atma aracı 
+                     olarak faydalı olabilirken, kontrolsüz ve uzun süreli oynandığında sosyal hayattan kopma, ders ve iş başarısında düşüş, uyku bozuklukları gibi ciddi sorunlara yol açabilir. Bu nedenle oyun bağımlılığı iyi ya da masum bir durum değildir; aksine bireyin fiziksel ve ruhsal sağlığını olumsuz
+                      etkileyen bir alışkanlıktır. Oyunlardan keyif almak önemlidir, fakat asıl önemli olan dengeyi koruyarak gerçek hayatı ihmal etmemektir.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="content-section">
+            <h3>En beğenilen oyunlar</h3>
+            <div class="games-grid">
+                
+                <div class="game-card">
+                    <img src="fotolar/fortnite.jpeg" alt="Bulmaca oyunu görseli">
+                    <div class="game-card-content">
+                        <span class="badge">Fortnite</span>
+                        <h4>Türü: Savaş Oyunu</h4>
+                        <p>Battle Royale oyun moduyla ünlü olan Fortnite, oyuncuların inşa yeteneklerini kullanarak hayatta kalmaya çalıştığı bir oyun.</p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <img src="fotolar/pubg.jpeg" alt="Strateji oyunu görseli">
+                    <div class="game-card-content">
+                        <span class="badge">PUBG (PlayerUnknown's Battlegrounds)</span>
+                        <h4>Türü: Savaş Oyunu</h4>
+                        <p>PUBG, oyuncuların bir adada hayatta kalmak için savaştığı popüler bir Battle Royale oyunudur. </p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <img src="fotolar/valorant.jpeg" alt="Yaratıcı oyun görseli">
+                    <div class="game-card-content">
+                        <span class="badge">Valorant</span>
+                        <h4>Türü: Fps mod savaş oyunu</h4>
+                        <p>Call of Duty serisinin Battle Royale oyunu olan Warzone, hızlı tempolu aksiyon ve yoğun çatışmalar sunar.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="content-section">
+            <h3>Neden Bu Oyunları Oynamamalısınız?</h3>
+            <ul>
+                <li><strong>Belirli Bir Sonu Yoktur:</strong> Sürekli "seviye atlama" baskısı ile sizi oyuna sürükler.</li>
+                <li><strong>Zihinsel gelişimi engeller:</strong> Sadece refleksleri değil, stratejik düşünceyi engeller ve bakış açısını daraltır.</li>
+                <li><strong>Yüksek Bağımlılık Riski:</strong> "Ganimet kutusu" (loot box) gibi kumar benzeri mekanikler içerir ve oyun içi alım yapmayı sağlar.</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+        <b>Hazırlayanlar:</b><br> <p>        
+        Ad soyad: Ahmet Arif İpek No: 240218064 <br>
+        Ad soyad: Muaz Ali Akçay No:             <br>
+        Ad soyad: Ebru Ateş No: 230218053              <br>
+        Ad soyad: Duygu Taktakoğlu No: 240218033       <br></p>
+      </p>
+    </footer>
+
+</body>
+</html>

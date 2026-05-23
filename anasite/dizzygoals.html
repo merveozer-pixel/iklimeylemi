@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dizzy Goals | Küresel Amaçlar</title>
+    
+    <link rel="icon" type="image/png" href="img/kureselamaclar-yenilogo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+      
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5; 
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        html { scroll-behavior: smooth; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; padding: 0; margin: 0; }
+
+        header {
+            background: rgba(255, 255, 255, 0.99);
+            padding: 10px 0;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e1e1e1;
+        }
+        .header-container {
+            width: 90%; max-width: 1400px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+        }
+        .header-left-group { display: flex; align-items: center; gap: 15px; }
+        .project-logo img { height: 50px; display: block; transition: 0.3s; }
+        .project-logo img:hover { transform: scale(1.05); }
+        .header-divider { width: 1px; height: 35px; background: #ccc; }
+        .aku-branding { display: flex; align-items: center; gap: 12px; }
+        .aku-branding img { height: 45px; border-radius: 50%; }
+        .aku-branding span { font-family: 'Poppins', sans-serif; font-size: 0.75rem; font-weight: 700; color: #444; }
+        nav ul { display: flex; gap: 30px; }
+        nav ul li a { font-family: 'Poppins', sans-serif; font-weight: 600; color: #444; font-size: 0.95rem; position: relative; }
+        nav ul li a::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; background-color: #009EDB; transition: 0.3s; }
+        nav ul li a:hover::after { width: 100%; }
+        nav ul li a:hover { color: #009EDB; }
+
+        /*içerik düenle*/
+        .content-container {
+            width: 90%; max-width: 1000px; 
+            margin: 60px auto;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .page-title {
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            color: #222;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .title-underline {
+            width: 80px; height: 5px; background: #E5243B;
+            margin: 0 auto 40px auto; border-radius: 3px;
+        }
+
+        .intro-text {
+            font-size: 1.1rem; line-height: 1.8; color: #555;
+            margin-bottom: 20px; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;
+        }
+
+        /* Video*/
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; 
+            height: 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            margin: 40px 0;
+            border: 5px solid white;
+        }
+        .video-wrapper iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+       
+        .steps-section { margin-top: 50px; }
+        
+        .steps-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            color: #222;
+            margin-bottom: 30px;
+            border-left: 5px solid #009EDB;
+            padding-left: 15px;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .step-card {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #eee;
+            transition: 0.3s;
+            position: relative;
+            padding-left: 60px; 
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            background: white;
+            border-color: #009EDB;
+        }
+
+        .step-number {
+            position: absolute;
+            left: 20px; top: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #e0e0e0;
+            line-height: 1;
+        }
+        
+        .step-card:hover .step-number { color: #009EDB; }
+
+        .step-text {
+            font-size: 1rem; color: #444; line-height: 1.6;
+        }
+        
+        .highlight { color: #E5243B; font-weight: bold; }
+
+        /*alt kısım kodu */
+        footer {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .social-icons-footer a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
+        .social-icons-footer a:hover { color: #009EDB; }
+
+        /* Animasyon eklet*/
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* mobil uyumlu yapar */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; }
+            .header-left-group { flex-direction: column; text-align: center; gap: 10px; }
+            .header-divider { display: none; }
+            .aku-branding span { font-size: 0.65rem; }
+            nav ul { flex-wrap: wrap; justify-content: center; }
+            
+            .content-container { width: 95%; padding: 25px; }
+            .page-title { font-size: 2rem; }
+            .steps-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="header-left-group">
+                <a href="index.html" class="project-logo">
+                    <img src="img/site logo.jpg" alt="Küresel Amaçlar Projesi">
+                </a>
+                <div class="header-divider"></div>
+                <a href="https://aku.edu.tr" target="_blank" class="aku-branding"><!--link kodu-->
+                     <img src="img/arkaplanlogo.jpg" alt="AKÜ Logosu"> <!-- logo kodu -->
+                     <span>Afyon Kocatepe Üniversitesi<br>Sürdürülebilirlik Koordinatörlüğü</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">ANA SAYFA</a></li><!--üsteki menü ana sayfa yönlendirme etiketi-->
+                    <li><a href="harekete-gec.html">HAREKETE GEÇ</a></li> <!-- yönlendirme etiketi -->
+                    <li><a href="neyapabilirim.html">NE YAPABİLİRİM?</a></li> <!-- yönlendirme etiketi -->
+                    <li><a href="skanedir.html">SKA NEDİR?</a></li><!-- yönlendirme etiketi -->
+                    <li><a href="hakkında.html">HAKKINDA</a></li><!-- yönlendirme etiketi -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content-container">
+        
+        <h1 class="page-title">DIZZY GOALS</h1>
+        <div class="title-underline"></div>
+
+        <p class="intro-text">
+            Futbol dünyanın en güçlü iletişim araçlarından biridir. <strong>Gareth Bale, Gary Lineker</strong> <!-- kalın yazma --> gibi yıldızlar ve büyük kulüpler, Küresel Amaçları yaygınlaştırmak için Dizzy Goals'a katıldı.
+        </p>
+        <p class="intro-text">
+            Sen de bu eğlenceli oyunu oynayarak bize katılabilir ve dünyayı değiştirmek için bir gol atabilirsin!
+        </p>
+
+        <div class="video-wrapper">
+            <iframe 
+                src="img/video2.mp4"  
+                title="Dizzy Goals Video" 
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="steps-section">
+            <h2 class="steps-title">Nasıl Katılabilirsin?</h2> <!-- nasıl katılabilirm başlığı-->
+            
+            <div class="steps-grid">
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <p class="step-text">2 adet futbol topu bulun.</p> <!-- nasıl katılabilirim altındaki kutucuklar -->
+                </div>
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <p class="step-text">Topları birbirinden en az <strong>6 metre</strong> mesafede yere koyun.</p><!-- nasıl katılabilirim altındaki kutucuklar -->
+                </div>
+                <div class="step-card">
+                    <span class="step-number">3</span>
+                    <p class="step-text">Elinizi topun üzerine koyun ve çevresinde <strong>13 defa</strong> dönün.</p> <!-- nasıl katılabilirim altındaki kutucuklar -->
+                </div>
+                <div class="step-card">
+                    <span class="step-number">4</span>
+                    <p class="step-text">Başınız dönerken diğer topa doğru koşun ve vuruşunuzu yapın!</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">5</span>
+                    <p class="step-text">En az <strong>3 arkadaşınızı</strong> etiketleyerek onları da oyuna davet edin.</p><!-- paragraf etiketi-->
+                </div>
+                <div class="step-card">
+                    <span class="step-number">6</span>
+                    <p class="step-text">Videonuzu <span class="highlight">#DizzyGoals</span> etiketi ile paylaşın ve <span class="highlight">@KureselAmaclar</span>'ı etiketleyin.</p> <!-- paragraf etşketi-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="social-icons-footer" style="margin-bottom: 20px;">
+            <a href="https://www.instagram.com/kureselamaclar/#" target="_blank"><i class="fab fa-instagram"></i></a> <!--alt çubuktaki buton kodu-->
+            <a href="https://x.com/kureselamaclar" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> <!--alt çubuktaki buton kodu-->
+            <a href="https://www.facebook.com/kureselamaclar" target="_blank"><i class="fab fa-facebook"></i></a> <!--alt çubuktaki buton kodu-->
+        </div>
+
+        <p style="opacity: 0.8; font-size: 0.95rem;">
+            © 2025 Küresel Amaçlar Web Tasarım Dersi Final Ödevi | Designed by <!-- aşağıda alt çubukta yazan yazı-->
+            <a href="ekibimiz.html" style="color: #009EDB; font-weight: bold; text-decoration: none;">&lt;Body&gt; Guards</a>
+        </p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proje Ekibi | &lt;Body&gt; Guards</title>
+    
+    <link rel="icon" type="image/png" href="img/kureselamaclar-yenilogo.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">  <!-- Bu kod, web sitemize binlerce hazır simg eklememizi sağlayan, dünyanın en popüler ikon kütüphanesi olan Font Awesome'ı projemize bağlayan bir "köprü"dür. -->
+
+    <style>
+        /* 1. GENEL AYARLAR*/
+        /* Tüm kutuların boyutlandırmasını sabitler, taşmaları önler */
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0; padding: 0; /* margin --> Dış Boşlukları Sıfırlar ----> padding; İç Boşlukları Sıfırlar */
+            font-family: 'Roboto', sans-serif; /* Ana yazı tipi */
+            background-color: #f8f9fa; /* Göz yormayan açık gri arka plan */
+            color: #333; /* Tam siyah yerine koyu gri, daha okunaklı olur */
+            overflow-x: hidden; /* Yatay kaydırma çubuğunu gizler */
+        }
+
+        /* Sayfa içi linklere tıklayınca yumuşak kaydırma (scroll) efekti koyuyoruz */
+        html { scroll-behavior: smooth; }
+
+        /* Linklerin alt çizgisini kaldırıp ve renk geçişini yumuşatıyoruz */
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; padding: 0; margin: 0; } /* margin --> Dış Boşlukları Sıfırlar ----> padding; İç Boşlukları Sıfırlar */
+
+        /* 2. HEADER (ÜST MENÜ) */
+        header {
+            background: rgba(255, 255, 255, 0.99); /* Hafif şeffaf beyaz */
+            padding: 10px 0; /* İç boşluk */
+            position: sticky; /* Sayfa aşağı inse de menü tepede kalsın istiyorum */
+            top: 0; /* En üstte durmasını sağlar */
+            z-index: 1000; /* Diğer her şeyin üstünde dursun istoyurz */
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05); /* Altına hafif gölge ekliyoruz */
+            border-bottom: 1px solid #e1e1e1; /* Altına ince gri çizgi çeker */
+        }
+
+        .header-container {
+            width: 90%; max-width: 1400px; margin: 0 auto; /* margin --> Dış Boşlukları Sıfırlar/
+            display: flex; /* Logo ve menüyü yan yana diz */
+            justify-content: space-between; /* Sağa ve sola yasla */
+            align-items: center; /* Dikeyde ortalasın */
+            padding: 0 20px; /* Yanlardan boşluk olsun */
+        }
+
+        /* Sol taraftaki Logo ve AKÜ yazısı grubu */
+        .header-left-group { display: flex; align-items: center; gap: 15px; } /* display --> Bu kutunun içindeki her şeyi (Logo resmini, dikey çizgiyi ve üniversite adını) otomatik olarak yan yana dizer. align-items ---> Farklı boylardaki elemanları tam orta noktalarından birbirine hizalar. gap -> Yan yana dizilen bu elemanların birbirine yapışmasını engeller. */
+        
+        /* Logoya hover efekti */
+        .project-logo img { height: 50px; display: block; transition: 0.3s; }
+        .project-logo img:hover { transform: scale(1.05); } /* transform: scale Bu elementi orijinal boyutundan %5 daha büyük hale getir demektir. */ 
+
+        /* Logo ile AKÜ yazısı arasındaki ince çizgi */
+        .header-divider { width: 1px; height: 35px; background: #ccc; }
+
+        .aku-branding { display: flex; align-items: center; gap: 12px; } /* yukarıdakinin aynısı; display --> Bu kutunun içindeki her şeyi (Logo resmini, dikey çizgiyi ve üniversite adını) otomatik olarak yan yana dizer. align-items ---> Farklı boylardaki elemanları tam orta noktalarından birbirine hizalar. gap -> Yan yana dizilen bu elemanların birbirine yapışmasını engeller. */
+        .aku-branding img { height: 45px; border-radius: 50%; } /* border kenar yumuşatır */
+        .aku-branding span { font-family: 'Poppins', sans-serif; font-size: 0.75rem; font-weight: 700; color: #444; } /* poppins kullanıyoruz eğer int yoksa yada başka sayfada poppins açılmazsa bilgisayarın kendi varsayılan sans-serif yazı tipini kullansın diyoruz */
+
+        /* Sağ taraftaki menü linkleri */
+        nav ul { display: flex; gap: 30px; } /* display: flex;Yan Yana Dizilim gap: 30px; boşluk bırakır 30pxlik */ 
+        nav ul li a { 
+            font-family: 'Poppins', sans-serif; font-weight: 600; color: #444; font-size: 0.95rem; position: relative; /* position relative; Bir kutuyu, içindeki diğer elemanlar için "Güvenli Bölge/Sınır" haline getirmek için kullanılır. */
+        }
+        
+        /* Menü alt çizgi animasyonu (Hover olunca uzayan çizgi) */
+        nav ul li a::after { 
+            content: ''; position: absolute; width: 0; height: 3px; bottom: -5px; left: 0; /* content: '': Burada bir içerik var ama içi boş anlamına gelir. position: absolute;: Çizgiyi linkin altına serbestçe yerleştirmemizi sağlar.Bunun çalışması için a etiketinde position: relative; olmalıdır. bottom: -5px;: Çizgiyi yazının tam altına yapıştırmak yerine, 5 piksel daha aşağıya yerleştirir. Yazıyla çizgi arasında nefes alacak bir boşluk bırakır. */
+            background-color: #009EDB; transition: 0.3s; 
+        }
+        nav ul li a:hover::after { width: 100%; } /* Bu kod, az önce hazırladığımız hayali çizgiye hayat veren animasyonun tetikleyicisidir. Mouse ile menü linkinin üzerine gelindiğinde, o görünmez (0 genişlikteki) çizgiyi %100 genişliğe ulaştırır */
+        nav ul li a:hover { color: #009EDB; }
+
+        /* 3. SAYFA BAŞLIĞI */
+        .page-header {
+            text-align: center; margin-top: 60px; margin-bottom: 50px; /* ext-align: center; Yatay Hizalama yapar, margin-top: 60px; Üst Dış Boşluk bırakır, margin-bottom: 50px; Alt Dış Boşluk bırakır */
+        }
+        .page-header h1 {
+            font-family: 'Poppins', sans-serif; font-size: 2.5rem; font-weight: 800; color: #222; margin-bottom: 10px;
+        }
+        .page-header p { font-size: 1.1rem; color: #666; }
+        .team-name { color: #E5243B; font-weight: 700; } /* Takım ismini kırmızı yapıyoruz */
+
+        /*  4. DANIŞMAN KARTI VIP Tasarım :)
+           Fatih Hocanın kartı bizimkilerden farklı ve özel olsun diye buraya yazdık */
+        .advisor-section {
+            display: flex; justify-content: center; margin-bottom: 80px; padding: 0 20px; /* display: flex;Yan Yana Dizilim , justify-content: center; tarayıcı soldaki ve sağdaki boşlukları ölçer, hepsini eşit paylaştırır ve elemanları tam merkeze çeker. */
+        }
+        
+        .advisor-card {
+            background: white; 
+            width: 100%; max-width: 500px; /* Genişliği sınırlı tutuyoruz */
+            padding: 40px; border-radius: 20px; text-align: center; /* borderi artık biliyoruz köşe yumuşatıcısı, text-align: center; ise Bulunduğun kutunun içindeki her şeyi (yazı, resim, buton) yatay eksende tam ortala demektir. */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08); /* Belirgin gölge */
+            border-top: 6px solid #009EDB; /* Üstüne kalın mavi çizgi */
+            position: relative; transition: transform 0.3s; /* position relative; Bir kutuyu, içindeki diğer elemanlar için "Güvenli Bölge/Sınır" haline getirmek için kullanılır. */ /* transform zaten animasyon süresi belirleme */
+        }
+        .advisor-card:hover { transform: translateY(-10px); /* Üzerine gelince yukarı kalksın */ }
+        
+        /* Kartın tepesindeki "DANIŞMAN" etiketi */
+        .advisor-badge {
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%); /* position: absolute;: Çizgiyi linkin altına serbestçe yerleştirmemizi sağlar. */
+            background: #009EDB; color: white; padding: 5px 25px;
+            border-radius: 20px; font-weight: bold; font-size: 0.8rem; letter-spacing: 1px; /* letter-spacig:1px: kelimedeki her bir harfin arasına 1 piksellik ek mesafe koy demektir. */
+            box-shadow: 0 5px 10px rgba(0, 158, 219, 0.3);
+        }
+
+        .advisor-img {
+            width: 150px; height: 150px; border-radius: 50%; object-fit: cover; /* object-fit: cover; ile resmi kutunun içine sığdırmak için ne gerekiyorsa yap, gerekirse kenarlardan biraz kırp ama asla resmin oranını enini-boyunu bozma diyoruz.*/
+            border: 5px solid #f0f2f5; margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Bir kutunun arkasına hayali bir ışık vuruyormuş gibi gölge eklemek istediğim için box-shadow kullanıyorum */
+        }
+
+        /* 5. BİZİM KARRTLARIMIZ */
+        .team-section {
+            background: white; padding: 60px 20px; border-top: 1px solid #eee; /* border-top Üstüne kalın çizgi */
+        }
+        
+        .section-title {
+            text-align: center; font-family: 'Poppins', sans-serif; font-size: 2rem; /* text-align: center; bulunduğun kutunun içindeki her şeyi (yazı, resim, buton) yatay eksende tam ortala demektir. */ 
+            color: #333; margin-bottom: 50px;
+        }
+        /* Başlığın altına kırmızı çizgi çekİyoruz */
+        .section-title span { border-bottom: 4px solid #E5243B; padding-bottom: 10px; } /* solid (Stil): Çizginin "kesintisiz/düz" olacağını söyler. 4px (Genişlik): Çizginin ne kadar kalın olacağını belirler. */ 
+
+        .team-grid {
+            max-width: 1200px; margin: 0 auto; /* margin dış boşluk */ 
+            display: grid; 
+            /* Grid sistemi: Ekran küçülürse kartları otomatik alt alta at */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* auto-fit: ekrana kaç tane sığıyorsa o kadar sütun oluştur.minmax(250px, 1fr): kutular en az 250px olsun ama yer varsa daha da büyüyüp boşluğu doldursunlar diyoruz. */
+            gap: 40px; /* Kartlar arası boşluk */
+        }
+
+        .member-card {
+            background: #fdfdfd; padding: 40px 30px; border-radius: 20px;
+            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* borderi artık biliyoruz köşe yumuşatıcısı, text-align: center; ise Bulunduğun kutunun içindeki her şeyi (yazı, resim, buton) yatay eksende tam ortala demektir. */
+            border: 1px solid #eee; transition: 0.3s; position: relative; overflow: hidden; /* solid (Stil): Çizginin "kesintisiz/düz" olacağını söyler. position relative; Bir kutuyu, içindeki diğer elemanlar için "Güvenli Bölge/Sınır" haline getirmek için kullanılır.overflow: hidden; bir kutunun içine sığmayan ne varsa onları gizle, kutunun dışına taşmalarına izin verme demektir */
+        }
+        .member-card:hover {
+            transform: translateY(-10px); background: white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); /* Bir kutunun arkasına hayali bir ışık vuruyormuş gibi gölge eklemek istediğim için box-shadow kullanıyorum */
+        }
+
+        /* Kartların üst çizgileri için özel renk sınıfları */
+        .border-red { border-top: 5px solid #E5243B; }    /* Burak */ 
+        .border-orange { border-top: 5px solid #FD9D24; } /* Kağan */ /* border-top Üstüne kalın çizgi solid çizginin kesintisiz/düz olacağını söyler. */
+        .border-green { border-top: 5px solid #3F7E44; }  /* Abdurahman */ 
+
+        .member-img {
+            width: 130px; height: 130px; border-radius: 50%; object-fit: cover; /* object-fit: cover; ile resmi kutunun içine sığdırmak için ne gerekiyorsa yap, gerekirse kenarlardan biraz kırp ama asla resmin oranını enini-boyunu bozma diyoruz.*/
+            margin-bottom: 20px; border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: 0.3s; /* Bir kutunun arkasına hayali bir ışık vuruyormuş gibi gölge eklemek istediğim için box-shadow kullanıyorum */
+        }
+        .member-card:hover .member-img { transform: scale(1.05); }
+
+        .member-name {
+            font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 700; color: #333; margin-bottom: 5px;
+        }
+        
+        .member-role {
+            font-size: 0.9rem; color: #666; margin-bottom: 20px; min-height: 50px; /* margin-bottom:20px; altımdaki komşum benden en az 20 piksel uzakta dursun demektir. */
+            display: flex; align-items: center; justify-content: center; /* display --> Bu kutunun içindeki her şeyi (Logo resmini, dikey çizgiyi ve üniversite adını) otomatik olarak yan yana dizer. align-items ---> Farklı boylardaki elemanları tam orta noktalarından birbirine hizalar.justify-content: center; tarayıcı soldaki ve sağdaki boşlukları ölçer, hepsini eşit paylaştırır ve elemanları tam merkeze çeker. */
+        }
+        
+        .student-no {
+            display: inline-block; background: #eee; color: #555; padding: 5px 15px; /* display- inline-block: Elemanları bir cümlede yan yana dizilen kelimeler kadar esnek, ama boyutları ayarlanabilen sağlam birer kutu kadar güçlü yapar. */
+            border-radius: 20px; font-size: 0.8rem; font-weight: bold; /* border kernar yumuşatma font-weight yazıyı kalın yapma -bold- */
+        }
+
+        /* 6. GERİ DÖN BUTONU */
+        .back-btn-container {
+            text-align: center; /* Bulunduğun kutunun içindeki her şeyi (yazı, resim, buton) yatayda tam ortala */
+            margin: 60px 0; /* Üstten ve alttan boşluk */
+        }
+        
+        .back-btn {
+            display: inline-block; /* display- inline-block: Elemanları bir cümlede yan yana dizilen kelimeler kadar esnek, ama boyutları ayarlanabilen sağlam birer kutu kadar güçlü yapar. */
+            padding: 15px 40px;
+            background-color: #333; /* Koyu gri arka plan */
+            color: white;
+            border-radius: 50px; /* Yuvarlak kenarlar */
+            font-weight: bold; /* kalınlığı belirtir */
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Bir kutunun arkasına hayali bir ışık vuruyormuş gibi gölge eklemek istediğim için box-shadow kullanıyorum */
+            transition: all 0.3s ease; /* Yumuşak geçiş */
+        }
+        
+        /* Butonun üzerine gelince */
+        .back-btn:hover {
+            background-color: #E5243B; /* Kırmızı olsun */
+            transform: translateY(-5px); /* Hafif yukarı zıplasın */
+            box-shadow: 0 15px 30px rgba(229, 36, 59, 0.4); /* Bir kutunun arkasına hayali bir ışık vuruyormuş gibi gölge eklemek istediğim için box-shadow kullanıyorum */
+        }
+
+        /* 7. FOOTER (ALT KISIM) */
+        footer {
+            background: #1a1a2e; color: #fff; padding: 50px 20px; text-align: center; margin-top: auto; /* text-align: center; Bulunduğu kutunun içindeki her şeyi (yazı, resim, buton) yatayda tam ortalar. margin-top: auto; Bir kutu içindeki elemanları yukarıdan aşağıya dizerken, en alttaki parçayı mıknatıs gibi tabana yapıştırmak için kullanılır */
+        }
+        .social-icons-footer a { color: white; font-size: 1.5rem; margin: 0 15px; transition: 0.3s; }
+        .social-icons-footer a:hover { color: #009EDB; }
+
+        /* MOBİL UYUMLULUK AYARLARI bu kısımda yapay zekadan destek aldım */
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; gap: 15px; } /* flex-direction: column;yukarıdan aşağıya diz, gap: 15px; Boşluk */
+            .header-left-group { flex-direction: column; text-align: center; gap: 10px; } /* flex-direction: column; yukarıdan aşağıya dizilim. text-align: center; Metin Odaklı Hizalama */ 
+            .header-divider { display: none; } /* display: none;: Elementi ve kapladığı boşluğu tamamen yok eder. (Sanki o kişi hiç orada yokmuş gibi) */
+            .aku-branding span { font-size: 0.65rem; }
+            nav ul { flex-wrap: wrap; justify-content: center; } /* flex-wrap: wrap; Sığmayanları Alt Satıra At, justify-content: center; Yatayda Ortala */
+            .team-grid { grid-template-columns: 1fr; } /* Mobilde kartlar alt alta */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="header-left-group">
+                <a href="index.html" class="project-logo">
+                    <img src="img/kureselamaclar-yenilogo.png" alt="Küresel Amaçlar Projesi">
+                </a>
+                <div class="header-divider"></div>
+                <a href="https://aku.edu.tr" target="_blank" class="aku-branding">
+                     <img src="img/afyonkocatepelogo.jpg" alt="AKÜ Logosu">
+                     <span>Afyon Kocatepe Üniversitesi<br>Sürdürülebilirlik Koordinatörlüğü</span>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">ANA SAYFA</a></li>
+                    <li><a href="harekete-gec.html">HAREKETE GEÇ</a></li>
+                    <li><a href="neyapabilirim.html">NE YAPABİLİRİM?</a></li>
+                    <li><a href="skanedir.html">SKA NEDİR?</a></li>
+                    <li><a href="hakkında.html" style="color: #009EDB;">HAKKINDA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>PROJE EKİBİ</h1>
+        <p>Web Tasarım Dersi Final Projesi | <span class="team-name">&lt;Body&gt; Guards</span></p>
+    </div>
+
+    <section class="advisor-section">
+        <div class="advisor-card">
+            <div class="advisor-badge">DANIŞMAN</div>
+            <img src="img/fatihozdinc.jpg" alt="Fatih Özdinç" class="advisor-img">
+            <h2 class="member-name">Doç. Dr. Fati̇h ÖZDİNÇ</h2>
+            <p class="member-role" style="color: #009EDB; font-weight: bold;">AKADEMİK DANIŞMAN</p>
+            <span class="student-no">AKÜ İİBF</span>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="section-title">
+            <span>Grup Üyeleri</span>
+        </div>
+
+        <div class="team-grid">
+            
+            <div class="member-card border-red">
+                <img src="img/burakyardimci.jpg" alt="Burak Yardımcı" class="member-img">
+                <h3 class="member-name">BURAK YARDIMCI</h3>
+                <p class="member-role">Ana Sayfa, Dizzy Goals, Store Sayfaları & Görsel Tasarım</p>
+                <span class="student-no">230218066</span>
+            </div>
+
+            <div class="member-card border-orange">
+                <img src="img/kagankeremoz.jpg" alt="Kağan Kerem Öz" class="member-img">
+                <h3 class="member-name">KAĞAN KEREM ÖZ</h3>
+                <p class="member-role">Harekete Geç, Ekibimiz, Hakkında , sosyal medya kiti Sayfaları & İçerik Yönetimi & Link yönlendirmeleri </p>
+                <span class="student-no">240218079</span>
+            </div>
+
+            <div class="member-card border-green">
+                <img src="img/abdi.jpg" alt="Abdurahman Özer" class="member-img">
+                <h3 class="member-name">ABDURAHMAN ÖZER</h3>
+                <p class="member-role">Ne Yapabilirim, SKA Nedir Sayfaları & Afiş Tasarımı</p>
+                <span class="student-no">240218008</span>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="back-btn-container">
+        <a href="index.html" class="back-btn">← Siteye Geri Dön</a>
+    </div>
+
+    <footer>
+        <div class="social-icons-footer" style="margin-bottom: 20px;"> <!-- margin-bottom:20px; altımdaki komşum benden en az 20 piksel uzakta dursun demektir. -->
+            <a href="https://www.instagram.com/kureselamaclar/#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/kureselamaclar" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://www.facebook.com/kureselamaclar" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+
+        <p style="opacity: 0.8; font-size: 0.95rem;">
+            © 2025 Küresel Amaçlar Web Tasarım Dersi Final Ödevi | Designed by 
+            <a href="ekibimiz.html" style="color: #009EDB; font-weight: bold; text-decoration: none;">&lt;Body&gt; Guards</a>
+        </p>
+    </footer>
+
+</body>
+</html>
